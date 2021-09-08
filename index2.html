@@ -14,15 +14,24 @@
 
 		 $(function(){
 			var formData = new FormData();
-			formData.append( 'api', 'system' );
+			formData.append( 'api', '/master/event' );
 			$.ajax({
 				type: "POST",
 				processData: false,
 				contentType: false,        
 				data: formData,
-				url: "https://script.google.com/macros/s/AKfycbxqltnrDLtvlW0_wapqEiTWWXiEWTxSWAeP0zfR3r2padGvuOUMz4a5uSr5jUQGOhYT/exec",
-			}).done(function(res){
-				$('#info').text(res.endpoint);
+				url: "https://script.google.com/macros/s/AKfycbyGPa9vLum0m5nndZHD6Lw7UUwtfUtwj0hwDHVt6S7IO-vtV5sVqVtXxL4JJ3KIQEaw/exec",
+			}).done(function(eventsJson){
+
+				//$('#info').text(JSON.stringify(res[0]));
+				//$('#info').text(res[0].event_name);
+
+				var output = "";
+				eventsJson.forEach(event => {
+					output += event.event_name + '<br>';
+				});
+				$('#info').html(output);
+
 			}).fail(function(XMLHttpRequest, status, e){
 				alert(e);
 			});

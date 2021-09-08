@@ -1,63 +1,160 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja" dir="ltr">
   <head>
-    <base target="_top">
-<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
-<title>[TOHO2021]info</title>
-    <style>
-body {
-  font-family: "Open Sans", sans-serif;
-  margin: 0; 
-  height: 100%; 
-  overflow: hidden;
-  align-items: center;
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="robots" content="noindex">
+
+    <title>[TOHO2021]info</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css" />
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./js/dateformat.js"></script>
+  </head>
+<body>
+
+  <div id="wrapper">
+  <div id="container">
+    <table id="event_table">
+      <thead>
+        <tr>
+          <td></td>
+          <th scope="col">場所</th>
+          <th scope="col">開始</th>
+          <th scope="col">集合</th>
+          <th scope="col">移動手段</th>
+          <th scope="col">お茶当番</th>
+          <th scope="col">駐車場</th>
+          <th scope="col">備考</th>
+          <th scope="col">連絡</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!--
+  <tr><th>9/12(日) 練習試合</th><td data-label="場所" class="txt">籠上中</td><td data-label="開始" class="txt">09:00</td><td data-label="集合" class="txt">07:30（東豊田中）</td><td data-label="移動手段" class="txt">車当番①</td><td data-label="お茶当番" class="txt">大村・寺坂</td><td data-label="駐車場" class="txt">制限あり（５台）<a href="https://forms.gle/xjVmjcxr6FC2F1X18" class="btn small">申込</a></td><td data-label="備考" class="txt">9:00～vs観山A(25ハーフ)<br>10:00～vs末広(20ハーフ)<br>10:50～vs末広A(25ハーフ)<br>11:50～ vs末広(20ハーフ)<br>小雨決行予定</td><td data-label="連絡" class="txt important">※車移動です。車当番の方は忘れないようにお願いします。<br>※駐車場の申込は車当番優先です。その他の方が申し込まれた場合は無効となりますのでご注意ください。</td></tr>
+        -->
+      </tbody>
+    </table>   
+
+
+  </div>
+  <footer>
+    <form name="form1" method="post" action="https://script.google.com/macros/s/AKfycbx8Sy_S993sF0R0fxtMGtYXavUVNxrUwlZQARmUeH_bYzjGxJj1/exec">
+      <input type="hidden" name="route" value="contact">
+      <input type="hidden" name="event_json" value="[&quot;9/12(日) 練習試合&quot;]">
+      <input type="submit" class="btn" value="当番交代連絡">
+    </form>
+    <form name="form2" method="post" action="https://script.google.com/macros/s/AKfycbyJ6JPFt-akG4R6udxaOPloZDbd_kAgA2sTW0_8PrkdaoGxLE628_iQDomMkabqKUUKLg/exec">
+      <input type="hidden" name="route" value="toban_list">
+      <input type="submit" class="btn" value="当番表(PDF)">
+    </form>
+  </footer>
+</div>
+
+<div id="loader" class="loader">
+  <h1>LOADING</h1>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+
+<script>
+$(function(){
+  
+  $('#wrapper').hide();
+  $('#loader').show();
+  
+  var formData = new FormData();
+  formData.append( 'api', '/master/event' );
+  $.ajax({
+    type: "POST",
+    processData: false,
+    contentType: false,        
+    data: formData,
+    url: "https://script.google.com/macros/s/AKfycbyGPa9vLum0m5nndZHD6Lw7UUwtfUtwj0hwDHVt6S7IO-vtV5sVqVtXxL4JJ3KIQEaw/exec",
+  }).done(function(eventsJson){
+     
+    //$('#event_table').append('<tr><th>9/12(日) ★練習試合</th><td data-label="場所" class="txt">籠上中</td><td data-label="開始" class="txt">09:00</td><td data-label="集合" class="txt">07:30（東豊田中）</td><td data-label="移動手段" class="txt">車当番①</td><td data-label="お茶当番" class="txt">大村・寺坂</td><td data-label="駐車場" class="txt">制限あり（５台）<a href="https://forms.gle/xjVmjcxr6FC2F1X18" class="btn small">申込</a></td><td data-label="備考" class="txt">9:00～vs観山A(25ハーフ)<br>10:00～vs末広(20ハーフ)<br>10:50～vs末広A(25ハーフ)<br>11:50～ vs末広(20ハーフ)<br>小雨決行予定</td><td data-label="連絡" class="txt important">※車移動です。車当番の方は忘れないようにお願いします。<br>※駐車場の申込は車当番優先です。その他の方が申し込まれた場合は無効となりますのでご注意ください。</td></tr>');
+
+    //var output = "";
+
+    var html_tr = '';
+    eventsJson.forEach(event => {
+      //output += event.event_name + '<br>';
+      var dateFormat = new DateFormat("M/d")
+      var event_title = dateFormat.format(new Date(event.event_date)) + '(' + event.event_day + ') ' + event.event_name;
+      
+      if (event.official_game_flag == 1) {
+        html_tr += '<tr class="official_game"><th class="official_game">' + event_title + '　＜公式戦＞</th>';
+      } else {
+        html_tr += '<tr><th>' + event_title + '</th>';
+      }
+
+      if (event.place != '') {
+        html_tr += '<td data-label="場所" class="txt">' + event.place + '</td>';
+      }
+
+      if (event.start_time != '') {
+        html_tr += '<td data-label="開始" class="txt">' + event.start_time + '</td>';
+      }
+        
+      var gathering_time_and_spot = event.gathering_time + '（' + event.gathering_spot + '）';
+      if (gathering_time_and_spot != '') {
+        html_tr += '<td data-label="集合" class="txt">' + gathering_time_and_spot + '</td>';
+      }
+
+      if (event.transportation != '') {
+        html_tr += '<td data-label="移動手段" class="txt">' + event.transportation + '</td>';
+      }
+
+      if (event.ocha_toban !== '') {
+        html_tr += '<td data-label="お茶当番" class="txt">' + event.ocha_toban + '</td>';
+      }
+
+      var parking = event.parking;
+      var parking_form = '';
+      if (event.parking_form != '') {
+          parking_form = '<a href="' + event.parking_form + '" class="btn small">申込</a>';
+      }
+      parking += parking_form;
+      if (parking !== '') {
+        html_tr += '<td data-label="駐車場" class="txt">' + parking + '</td>';
+      }
+        
+      if (event.memo != '') {
+        var memo = replaceBreak(event.memo);
+        html_tr += '<td data-label="備考" class="txt">' + memo + '</td>';
+      }
+
+      if (replaceBreak(event['notice']) !== '') {
+        var notice = replaceBreak(event['notice']);
+        //var notice = convList(event['notice']);
+        html_tr += '<td data-label="連絡" class="txt important">' + notice + '</td>';
+      }
+
+      html_tr += '</tr>';
+    });
+
+    $('#event_table').append(html_tr);
+
+    $('#loader').hide();
+    $('#wrapper').show();
+        
+  }).fail(function(XMLHttpRequest, status, e){
+    $('#loader').hide();
+    alert(e);
+  });
+});
+
+function replaceBreak(s) {
+  var br = /[\r\n]+/g; //改行
+  var rep = "<br>"; //置換文字列
+
+  return s.replace(br,rep);
 }
 
-    iframe {
-        border:none;
-        width:100%;
-        height:100%;
-    }
-    </style>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-  </head>
-  <body>
-      
-    <div class="container">
-        <iframe id="toho2021_frame"
-            title="TOHO2021"
-            width="100%"
-            height="100%"
-            frameborder="0"
-            scrolling="no"
-            src="./loading.html">
-        </iframe>
-
-    </div>
-
-    <script>
-
-		 $(function(){
-			var formData = new FormData();
-			formData.append( 'api', 'system' );
-			$.ajax({
-				type: "POST",
-				processData: false,
-				contentType: false,        
-				data: formData,
-				url: "https://script.google.com/macros/s/AKfycbxqltnrDLtvlW0_wapqEiTWWXiEWTxSWAeP0zfR3r2padGvuOUMz4a5uSr5jUQGOhYT/exec",
-			}).done(function(res){
-				$('#toho2021_frame').attr('src', res.endpoint);
-			}).fail(function(XMLHttpRequest, status, e){
-				alert(e);
-			});
-		});
-
-		$(window).on('load resize',function(){
-			$('.container').css('width',  $(window).width());
-			$('.container').css('height',  $(window).height());
-		});
-
-    </script>
+</script>
+    
 </body>
+
 </html>

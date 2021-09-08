@@ -1,15 +1,27 @@
-body{
+body {
+  font-family: "Open Sans", sans-serif;
+  /*line-height: 1.25;*/
+  margin: 10;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  flex-direction: column;
+
+}
+
+/*--loader------------------------------------------------*/
+body.loader {
 	background:#333;
 	background: -webkit-gradient(radial, center center, 120, center center, 900, from(#33495E), to(#2E2329));
 	background:-moz-radial-gradient(circle, #33495E, #2E2329);
-
 }
+
 .loader{
 	margin:200px auto;
 }
 h1{
 	font-family: 'Actor', sans-serif;
-	color:#FFF;
+	/*color:#FFF;*/
 	font-size:16px;
 	letter-spacing:1px;
 	font-weight:200;
@@ -82,10 +94,6 @@ h1{
 	z-index:200;
 	}
 }
-
-
-
-
 @-webkit-keyframes kiri {
      0% {-webkit-transform:translateX(-20px);
 	z-index:200;
@@ -114,4 +122,447 @@ h1{
 	100%{-o-transform:translateX(-20px);
 	}
 }
+/*--loader------------------------------------------------*/
 
+
+
+
+
+#container{
+    margin:10px;
+    background-color: #fff;
+    min-width:300px;
+    flex-grow: 1;
+}
+footer{
+    /*background-color: #eee;*/
+    background-color: #eee;
+    display: flex;
+    justify-content: space-around;
+    padding-bottom: 15px;
+    padding-top: 10px;
+    width: 100%;
+
+}
+footer a{
+    color: #333;
+    padding: 10px;
+    text-align: center;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  /*min-width: 1200px;*/
+}
+table tr {
+  background-color: #fff;
+  //border-bottom: 2px solid #fff;
+    border: 1px solid #fd6767;
+}
+table tr:nth-child(even){
+  background-color: #eee;
+}
+table th,
+table td {
+  padding: .35em 1em;
+  border-right: 1px dotted #bbb;
+}
+table thead th {
+    /*font-size: .85em;*/
+    padding: 1em;
+}
+table thead tr{
+  background-color: #fd6767;
+  color:#fff;
+}
+table tbody th {
+  text-align: left;
+  /*font-size: .8em;*/
+}
+.txt{
+   text-align: left;
+   /*font-size: .75em;*/
+}
+.important{
+   color: #e74c3c;
+}
+
+.price{
+  text-align: right;
+  color: #FF7043;
+  font-weight: bold;
+}
+/*
+br {
+  display: block;
+  content: "";
+  margin: 5px 0;
+}
+*/
+.btn {
+  display: inline-block;
+  padding: 5px 10px;
+  text-decoration: none;
+  background: #bdc3c7;
+  color: #333;
+  border: 1px solid rgb(228,226,223);
+  border-radius: 4px;
+  width: 130px;
+  text-align: center;
+  font-size: 1.0em
+}
+.btn.small {
+  padding: 0px 15px;
+  width: auto;
+}
+.btn.emphasis{
+  background-color:#2980b9;
+  color: #fff;
+}
+.btn:hover {
+  transition: all .2s linear;
+  //background: #e4e2df;
+  background: #bdcc00;
+}
+/*
+.btn.emphasis:hover{
+  background: #7ed6df;
+}
+*/
+
+ul {
+  margin: 0;
+}
+
+
+.radio {
+  margin: 0.5rem;
+  //border: 1px solid #fd6767;
+}
+.radio input[type=radio] {
+  position: absolute;
+  opacity: 0;
+}
+.radio input[type=radio] + .radio-label:before {
+  content: "";
+  background: #f4f4f4;
+  border-radius: 100%;
+  border: 1px solid #b4b4b4;
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  position: relative;
+  top: -0.2em;
+  margin-right: 1em;
+  vertical-align: top;
+  cursor: pointer;
+  text-align: center;
+  transition: all 250ms ease;
+}
+.radio input[type=radio]:checked + .radio-label:before {
+  background-color: #3197EE;
+  box-shadow: inset 0 0 0 4px #f4f4f4;
+}
+.radio input[type=radio]:focus + .radio-label:before {
+  outline: none;
+  border-color: #3197EE;
+}
+.radio input[type=radio]:disabled + .radio-label:before {
+  box-shadow: inset 0 0 0 4px #f4f4f4;
+  border-color: #b4b4b4;
+  background: #b4b4b4;
+}
+.radio input[type=radio] + .radio-label:empty:before {
+  margin-right: 0;
+}
+
+
+
+@media screen and (max-width: 1200px) {
+  table {
+    border: 0;
+    width:100%
+  }
+  table th{
+    background-color: #fd6767;
+    display: block;
+    border-right: none;
+  }
+  table th.official_game {
+    background-color: #d63031;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+  table tr {
+    display: block;
+    margin-bottom: .625em;
+    border: 1px solid #fd6767;
+  }
+  table tr.official_game {
+    border: 1px solid #d63031;
+  }
+
+  table td {
+    border-bottom: 1px dotted #bbb;
+    display: block;
+    /*font-size: .8em;*/
+    text-align: right;
+    position: relative;
+    padding: .5em 1.0em .9em 8em;
+    border-right: none;
+  }
+  
+  table td::before {
+    content: attr(data-label);
+    font-weight: bold;
+    position: absolute;
+    left: 10px;
+    color: #000;
+  }
+  table td:last-child {
+    border-bottom: 0;
+  }
+  table tbody th {
+    color: #fff;
+    padding: 1em;
+    /*font-size: 1.2em;*/
+  }
+  table tr:nth-child(even){
+    background-color: #fff;
+  }
+}
+
+/* Colors */
+/* ---------------------------------------- */
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.msg-text {
+  margin: 0px;
+  padding: 5px;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 18px;
+  color: #fff;
+  border-radius: 3px;
+  display: none;
+  background-color:#2980b9;
+}
+.msg-text.error {
+  background-color: #EA2027;
+}
+/*
+header, form {
+  padding: 10px 0 0;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+*/
+
+h2.heading {
+  font-size: 18px;
+  text-transform: uppercase;
+  font-weight: 300;
+  text-align: left;
+  color: #506982;
+  border-bottom: 3px solid #fd6767;
+  padding-bottom: 3px;
+  margin-bottom: 5px;
+  font-weight: bold;
+
+}
+
+.controls {
+  text-align: left;
+  position: relative;
+  margin-bottom: 18px;
+}
+.controls input[type="text"],
+.controls input[type="email"],
+.controls input[type="number"],
+.controls input[type="date"],
+.controls input[type="tel"],
+.controls textarea,
+.controls button,
+.controls select {
+  padding: 15px 10px;
+//  font-size: 14px;
+  border: 1px solid #c6c6c6;
+  width: 100%;
+  margin-bottom: 5px;
+  font-family: "Open Sans", sans-serif;
+//  font-size: 16px;
+  font-weight: 300;
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  -moz-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+
+}
+.controls input[type="text"]:focus, .controls input[type="text"]:hover,
+.controls input[type="email"]:focus,
+.controls input[type="email"]:hover,
+.controls input[type="number"]:focus,
+.controls input[type="number"]:hover,
+.controls input[type="date"]:focus,
+.controls input[type="date"]:hover,
+.controls input[type="tel"]:focus,
+.controls input[type="tel"]:hover,
+.controls textarea:focus,
+.controls textarea:hover,
+.controls button:focus,
+.controls button:hover,
+.controls select:focus,
+.controls select:hover {
+  outline: none;
+  border-color: #9FB1C1;
+
+}
+.controls input[type="text"]:focus + label, .controls input[type="text"]:hover + label,
+.controls input[type="email"]:focus + label,
+.controls input[type="email"]:hover + label,
+.controls input[type="number"]:focus + label,
+.controls input[type="number"]:hover + label,
+.controls input[type="date"]:focus + label,
+.controls input[type="date"]:hover + label,
+.controls input[type="tel"]:focus + label,
+.controls input[type="tel"]:hover + label,
+.controls textarea:focus + label,
+.controls textarea:hover + label,
+.controls button:focus + label,
+.controls button:hover + label,
+.controls select:focus + label,
+.controls select:hover + label {
+  color: #bdcc00;
+  cursor: text;
+}
+.controls select {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+.controls label {
+  position: absolute;
+  left: 8px;
+  top: 12px;
+  width: 60%;
+  color: #999;
+//  font-size: 16px;
+  display: inline-block;
+  padding: 0px 10px;
+//  font-weight: 400;
+  font-weight: bold;
+  background-color: rgba(255, 255, 255, 0);
+  -moz-transition: color 0.3s, top 0.3s, background-color 0.8s;
+  -o-transition: color 0.3s, top 0.3s, background-color 0.8s;
+  -webkit-transition: color 0.3s, top 0.3s, background-color 0.8s;
+  transition: color 0.3s, top 0.3s, background-color 0.8s;
+  background-color: white;
+}
+.controls label.active {
+  top: -11px;
+  color: #555;
+  background-color: white;
+  width: auto;
+}
+
+
+.controls label.option:after {
+  margin-left: 0.5em;
+  padding: 1px 6px 1px 6px;
+  border-radius: 2px;
+  font-size: 0.8em;
+  color: white;
+  background-color: #f39c12;
+  content: "任 意";
+  vertical-align: text-top;
+  font-weight: 400;
+}
+
+.controls textarea {
+  resize: none;
+  height: 100px;
+}
+
+/*
+button {
+  cursor: pointer;
+  background-color: #1b3d4d;
+  border: none;
+  color: #fff;
+  padding: 12px 0;
+  float: right;
+}
+button:hover {
+  background-color: #224c60;
+}
+*/
+select:invalid {
+  /*olor: #757575;*/
+}
+.radio {
+  margin: 0.5rem;
+}
+.radio input[type=radio] {
+  position: absolute;
+  opacity: 0;
+}
+.radio input[type=radio] + .radio-label:before {
+  content: "";
+  background: #f4f4f4;
+  border-radius: 100%;
+  border: 1px solid #b4b4b4;
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  position: relative;
+  top: -0.2em;
+  margin-right: 1em;
+  vertical-align: top;
+  cursor: pointer;
+  text-align: center;
+  transition: all 250ms ease;
+}
+.radio input[type=radio]:checked + .radio-label:before {
+  background-color: #3197EE;
+  box-shadow: inset 0 0 0 4px #f4f4f4;
+}
+.radio input[type=radio]:focus + .radio-label:before {
+  outline: none;
+  border-color: #3197EE;
+}
+.radio input[type=radio]:disabled + .radio-label:before {
+  box-shadow: inset 0 0 0 4px #f4f4f4;
+  border-color: #b4b4b4;
+  background: #b4b4b4;
+}
+.radio input[type=radio] + .radio-label:empty:before {
+  margin-right: 0;
+}
+
+ul {
+  padding-left: 20px;
+  padding-bottom: 10px;
+  font-size: .8em;
+  color: #506982;
+}
