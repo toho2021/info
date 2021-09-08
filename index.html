@@ -81,8 +81,8 @@ $(function(){
     var html_tr = '';
     eventsJson.forEach(event => {
       //output += event.event_name + '<br>';
-      var dateFormat = new DateFormat("M/d")
-      var event_title = dateFormat.format(new Date(event.event_date)) + '(' + event.event_day + ') ' + event.event_name;
+      //var dateFormat = new DateFormat("M/d")
+      var event_title = new DateFormat("M/d").format(new Date(event.event_date)) + '(' + event.event_day + ') ' + event.event_name;
       
       if (event.official_game_flag == 1) {
         html_tr += '<tr class="official_game"><th class="official_game">' + event_title + '　＜公式戦＞</th>';
@@ -95,10 +95,10 @@ $(function(){
       }
 
       if (event.start_time != '') {
-        html_tr += '<td data-label="開始" class="txt">' + event.start_time + '</td>';
+        html_tr += '<td data-label="開始" class="txt">' + new DateFormat("H:mm").format(new Date(event.start_time)) + '</td>';
       }
         
-      var gathering_time_and_spot = event.gathering_time + '（' + event.gathering_spot + '）';
+      var gathering_time_and_spot = new DateFormat("H:mm").format(new Date(event.gathering_time)) + '（' + event.gathering_spot + '）';
       if (gathering_time_and_spot != '') {
         html_tr += '<td data-label="集合" class="txt">' + gathering_time_and_spot + '</td>';
       }
