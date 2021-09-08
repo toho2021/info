@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<title>[TOHO2021]info</title>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  </head>
+  <body>
+      Hello
+      <div id="info"></div>
+      
+    <script>
+
+		 $(function(){
+			var formData = new FormData();
+			formData.append( 'api', 'system' );
+			$.ajax({
+				type: "POST",
+				processData: false,
+				contentType: false,        
+				data: formData,
+				url: "https://script.google.com/macros/s/AKfycbxqltnrDLtvlW0_wapqEiTWWXiEWTxSWAeP0zfR3r2padGvuOUMz4a5uSr5jUQGOhYT/exec",
+			}).done(function(res){
+				$('#info').text(res.endpoint);
+			}).fail(function(XMLHttpRequest, status, e){
+				alert(e);
+			});
+		});
+
+
+    </script>
+</body>
+</html>
