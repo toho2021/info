@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+<title>[TOHO2021]掲示板</title>
+    <style>
+body {
+  font-family: "Open Sans", sans-serif;
+  margin: 0; 
+  height: 100%; 
+  overflow: hidden;
+  align-items: center;
+}
+
+    iframe {
+        border:none;
+        width:100%;
+        height:100%;
+    }
+    </style>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  </head>
+  <body>
+      
+    <div class="container">
+        <iframe id="toho2021_frame"
+            title="TOHO2021"
+            width="100%"
+            height="100%"
+            frameborder="0"
+            scrolling="no"
+            src="./loading.html">
+        </iframe>
+
+    </div>
+
+    <script>
+
+		 $(function(){
+			var formData = new FormData();
+			formData.append( 'api', 'system' );
+			$.ajax({
+				type: "POST",
+				processData: false,
+				contentType: false,        
+				data: formData,
+				url: "https://script.google.com/macros/s/AKfycbxqltnrDLtvlW0_wapqEiTWWXiEWTxSWAeP0zfR3r2padGvuOUMz4a5uSr5jUQGOhYT/exec",
+			}).done(function(res){
+				$('#toho2021_frame').attr('src', res.endpoint);
+			}).fail(function(XMLHttpRequest, status, e){
+				alert(e);
+			});
+		});
+
+		$(window).on('load resize',function(){
+			$('.container').css('width',  $(window).width());
+			$('.container').css('height',  $(window).height());
+		});
+
+    </script>
+</body>
+</html>
