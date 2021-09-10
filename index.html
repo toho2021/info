@@ -13,7 +13,6 @@
   </head>
 <body>
 
-  <div id="wrapper">
   <div id="container">
     <table id="event_table">
       <thead>
@@ -30,24 +29,15 @@
         </tr>
       </thead>
       <tbody>
-        <!--
-  <tr><th>9/12(日) 練習試合</th><td data-label="場所" class="txt">籠上中</td><td data-label="開始" class="txt">09:00</td><td data-label="集合" class="txt">07:30（東豊田中）</td><td data-label="移動手段" class="txt">車当番①</td><td data-label="お茶当番" class="txt">大村・寺坂</td><td data-label="駐車場" class="txt">制限あり（５台）<a href="https://forms.gle/xjVmjcxr6FC2F1X18" class="btn small">申込</a></td><td data-label="備考" class="txt">9:00～vs観山A(25ハーフ)<br>10:00～vs末広(20ハーフ)<br>10:50～vs末広A(25ハーフ)<br>11:50～ vs末広(20ハーフ)<br>小雨決行予定</td><td data-label="連絡" class="txt important">※車移動です。車当番の方は忘れないようにお願いします。<br>※駐車場の申込は車当番優先です。その他の方が申し込まれた場合は無効となりますのでご注意ください。</td></tr>
-        -->
+        <!--<tr><th>9/12(日) 練習試合</th><td data-label="場所" class="txt">籠上中</td><td data-label="開始" class="txt">09:00</td><td data-label="集合" class="txt">07:30（東豊田中）</td><td data-label="移動手段" class="txt">車当番①</td><td data-label="お茶当番" class="txt">大村・寺坂</td><td data-label="駐車場" class="txt">制限あり（５台）<a href="https://forms.gle/xjVmjcxr6FC2F1X18" class="btn small">申込</a></td><td data-label="備考" class="txt">9:00～vs観山A(25ハーフ)<br>10:00～vs末広(20ハーフ)<br>10:50～vs末広A(25ハーフ)<br>11:50～ vs末広(20ハーフ)<br>小雨決行予定</td><td data-label="連絡" class="txt important">※車移動です。車当番の方は忘れないようにお願いします。<br>※駐車場の申込は車当番優先です。その他の方が申し込まれた場合は無効となりますのでご注意ください。</td></tr>-->
       </tbody>
     </table>   
-
-
+    <p id="msg-text"> エラーメッセージ </p>
   </div>
   <footer>
-    <form name="form1" method="post" action="https://script.google.com/macros/s/AKfycbx8Sy_S993sF0R0fxtMGtYXavUVNxrUwlZQARmUeH_bYzjGxJj1/exec">
-      <input type="button" class="btn" value="当番交代連絡" >
-    </form>
-    <form name="form2" method="post" action="https://script.google.com/macros/s/AKfycbyJ6JPFt-akG4R6udxaOPloZDbd_kAgA2sTW0_8PrkdaoGxLE628_iQDomMkabqKUUKLg/exec">
-      <input type="hidden" name="route" value="toban_list">
-      <input type="submit" class="btn" value="当番表(PDF)">
-    </form>
+    <button class="btn">当番交代連絡</button>
+    <button class="btn">当番表(PDF)</button>
   </footer>
-</div>
 
 <div id="loader" class="loader">
   <h1>LOADING</h1>
@@ -59,7 +49,8 @@
 <script>
 $(function(){
   
-  $('#wrapper').hide();
+  $('#container').hide();
+  $('footer').hide();
   $('#loader').show();
   
   var formData = new FormData();
@@ -72,71 +63,95 @@ $(function(){
     url: "https://script.google.com/macros/s/AKfycbyGPa9vLum0m5nndZHD6Lw7UUwtfUtwj0hwDHVt6S7IO-vtV5sVqVtXxL4JJ3KIQEaw/exec",
   }).done(function(eventsJson){
      
-    //$('#event_table').append('<tr><th>9/12(日) ★練習試合</th><td data-label="場所" class="txt">籠上中</td><td data-label="開始" class="txt">09:00</td><td data-label="集合" class="txt">07:30（東豊田中）</td><td data-label="移動手段" class="txt">車当番①</td><td data-label="お茶当番" class="txt">大村・寺坂</td><td data-label="駐車場" class="txt">制限あり（５台）<a href="https://forms.gle/xjVmjcxr6FC2F1X18" class="btn small">申込</a></td><td data-label="備考" class="txt">9:00～vs観山A(25ハーフ)<br>10:00～vs末広(20ハーフ)<br>10:50～vs末広A(25ハーフ)<br>11:50～ vs末広(20ハーフ)<br>小雨決行予定</td><td data-label="連絡" class="txt important">※車移動です。車当番の方は忘れないようにお願いします。<br>※駐車場の申込は車当番優先です。その他の方が申し込まれた場合は無効となりますのでご注意ください。</td></tr>');
-
-    //var output = "";
-
-    var html_tr = '';
-    eventsJson.forEach(event => {
-      //output += event.event_name + '<br>';
-      //var dateFormat = new DateFormat("M/d")
-      var event_title = new DateFormat("M/d").format(new Date(event.event_date)) + '(' + event.event_day + ') ' + event.event_name;
-      
-      if (event.official_game_flag == 1) {
-        html_tr += '<tr class="official_game"><th class="official_game">' + event_title + '　＜公式戦＞</th>';
-      } else {
-        html_tr += '<tr><th>' + event_title + '</th>';
-      }
-
-      if (event.place != '') {
-        html_tr += '<td data-label="場所" class="txt">' + event.place + '</td>';
-      }
-
-      if (event.start_time != '') {
-        html_tr += '<td data-label="開始" class="txt">' + new DateFormat("H:mm").format(new Date(event.start_time)) + '</td>';
-      }
-        
-      var gathering_time_and_spot = new DateFormat("H:mm").format(new Date(event.gathering_time)) + '（' + event.gathering_spot + '）';
-      if (gathering_time_and_spot != '') {
-        html_tr += '<td data-label="集合" class="txt">' + gathering_time_and_spot + '</td>';
-      }
-
-      if (event.transportation != '') {
-        html_tr += '<td data-label="移動手段" class="txt">' + event.transportation + '</td>';
-      }
-
-      if (event.ocha_toban !== '') {
-        html_tr += '<td data-label="お茶当番" class="txt">' + event.ocha_toban + '</td>';
-      }
-
-      var parking = event.parking;
-      var parking_form = '';
-      if (event.parking_form != '') {
-          parking_form = '<a href="' + event.parking_form + '" class="btn small">申込</a>';
-      }
-      parking += parking_form;
-      if (parking !== '') {
-        html_tr += '<td data-label="駐車場" class="txt">' + parking + '</td>';
-      }
-        
-      if (event.memo != '') {
-        var memo = replaceBreak(event.memo);
-        html_tr += '<td data-label="備考" class="txt">' + memo + '</td>';
-      }
-
-      if (replaceBreak(event['notice']) !== '') {
-        var notice = replaceBreak(event['notice']);
-        //var notice = convList(event['notice']);
-        html_tr += '<td data-label="連絡" class="txt important">' + notice + '</td>';
-      }
-
-      html_tr += '</tr>';
+    eventsJson.sort((a,b)=>{
+      var dateA = new Date(a.event_date);
+      var dateB = new Date(b.event_date);
+      if( dateA > dateB ) return -1;
+      if( dateA < dateB ) return 1;
+      return 0;
     });
 
-    $('#event_table').append(html_tr);
+    var dateToday = new Date().setHours(0,0,0,0);
+    var html_tr = '';
+    eventsJson.forEach(event => {
+      var disp_flag = false;
+      var dateEvent = new Date(event.event_date).setHours(0,0,0,0);
+      if (dateEvent.valueOf() == dateToday.valueOf()) {
+        console.log("★★★★");
+        //当日は１８時まで表示
+        if (new Date().getHours() < 18) {
+          disp_flag = true;
+        }
+      } else if (dateEvent >= dateToday) {
+        disp_flag = true;
+      }
+      
+
+      if (disp_flag == true) {
+        var event_title = new DateFormat("M/d").format(new Date(event.event_date)) + '(' + event.event_day + ') ' + event.event_name;
+        
+        if (event.official_game_flag == 1) {
+          html_tr += '<tr class="official_game"><th class="official_game">' + event_title + '　＜公式戦＞</th>';
+        } else {
+          html_tr += '<tr><th>' + event_title + '</th>';
+        }
+
+        if (event.place != '') {
+          html_tr += '<td data-label="場所" class="txt">' + event.place + '</td>';
+        }
+
+        if (event.start_time != '') {
+          html_tr += '<td data-label="開始" class="txt">' + new DateFormat("H:mm").format(new Date(event.start_time)) + '</td>';
+        }
+          
+        var gathering_time_and_spot = new DateFormat("H:mm").format(new Date(event.gathering_time)) + '（' + event.gathering_spot + '）';
+        if (gathering_time_and_spot != '') {
+          html_tr += '<td data-label="集合" class="txt">' + gathering_time_and_spot + '</td>';
+        }
+
+        if (event.transportation != '') {
+          html_tr += '<td data-label="移動手段" class="txt">' + event.transportation + '</td>';
+        }
+
+        if (event.ocha_toban !== '') {
+          html_tr += '<td data-label="お茶当番" class="txt">' + event.ocha_toban + '</td>';
+        }
+
+        var parking = event.parking;
+        var parking_form = '';
+        if (event.parking_form != '') {
+            parking_form = '<a href="' + event.parking_form + '" class="btn small">申込</a>';
+        }
+        parking += parking_form;
+        if (parking !== '') {
+          html_tr += '<td data-label="駐車場" class="txt">' + parking + '</td>';
+        }
+          
+        if (event.memo != '') {
+          var memo = replaceBreak(event.memo);
+          html_tr += '<td data-label="備考" class="txt">' + memo + '</td>';
+        }
+
+        if (replaceBreak(event['notice']) !== '') {
+          var notice = replaceBreak(event['notice']);
+          //var notice = convList(event['notice']);
+          html_tr += '<td data-label="連絡" class="txt important">' + notice + '</td>';
+        }
+
+        html_tr += '</tr>';
+      }
+    });
+
+    if (html_tr=="") {
+		  $('#msg-text').html("現在開催予定のイベントはありません");
+    } else {
+		  $('#event_table').append(html_tr);
+	  }
+    
 
     $('#loader').hide();
-    $('#wrapper').show();
+    $('#container').show();
+    $('footer').show();
         
   }).fail(function(XMLHttpRequest, status, e){
     $('#loader').hide();
