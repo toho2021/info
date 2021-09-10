@@ -437,9 +437,10 @@ h2.heading {
 .controls button:hover,
 .controls select:focus,
 .controls select:hover {
+/*
   outline: none;
   border-color: #9FB1C1;
-
+*/
 }
 .controls input[type="text"]:focus + label, .controls input[type="text"]:hover + label,
 .controls input[type="email"]:focus + label,
