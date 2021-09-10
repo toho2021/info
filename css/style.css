@@ -461,9 +461,11 @@ h2.heading {
   cursor: text;
 }
 .controls select {
+/*
   -moz-appearance: none;
   -webkit-appearance: none;
   cursor: pointer;
+*/
 }
 .controls label {
   /*font-size: 16px;*/
