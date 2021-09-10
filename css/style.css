@@ -256,7 +256,7 @@ ul {
 
 .radio {
   margin: 0.5rem;
-  //border: 1px solid #fd6767;
+  /*border: 1px solid #fd6767;*/
 }
 .radio input[type=radio] {
   position: absolute;
@@ -272,7 +272,7 @@ ul {
   height: 1.4em;
   position: relative;
   top: -0.2em;
-  margin-right: 1em;
+  margin-right: 0.4em;
   vertical-align: top;
   cursor: pointer;
   text-align: center;
@@ -538,6 +538,7 @@ button:hover {
 select:invalid {
   color: #757575;
 }
+/*
 .radio {
   margin: 0.5rem;
 }
@@ -577,7 +578,7 @@ select:invalid {
 .radio input[type=radio] + .radio-label:empty:before {
   margin-right: 0;
 }
-
+*/
 ul {
   padding-left: 20px;
   padding-bottom: 10px;
