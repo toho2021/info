@@ -18,17 +18,35 @@
     </ul>
     <p class="msg-text" id="msg-text"> エラーメッセージ </p>
     <form name="form1" id="form1" method="post" action="https://script.google.com/macros/s/AKfycbyJ6JPFt-akG4R6udxaOPloZDbd_kAgA2sTW0_8PrkdaoGxLE628_iQDomMkabqKUUKLg/exec">
-      <div class="radio"> <input id="radio-1" name="toban" type="radio" value="ocha"> <label for="radio-1" class="radio-label">お茶当番</label> &nbsp;&nbsp; <input id="radio-2" name="toban" type="radio" value="car"> <label for="radio-2" class="radio-label">車当番</label> <input name="toban" type="radio" value="" style="display:none" checked=""> </div> <br>
-      <div class="controls"> <select id="event" class="floatLabel" name="event">
-      <option value="9/9(木) 練習試合">9/9(木) 練習試合</option></select> <label for="event" class="active">イベント</label> </div>
-      <div class="controls"> <select id="grade" class="floatLabel" name="grade">
+      <div class="radio">
+        <input id="radio-1" name="toban" type="radio" value="ocha"><label for="radio-1" class="radio-label">お茶当番</label> &nbsp;&nbsp; 
+        <input id="radio-2" name="toban" type="radio" value="car"><label for="radio-2" class="radio-label">車当番</label> 
+        <input name="toban" type="radio" value="" style="display:none" checked=""> </div> <br>
+      <div class="controls"> 
+        <select id="event" class="floatLabel" name="event">
+          <option value="9/9(木) 練習試合">9/9(木) 練習試合aaa</option>
+        </select>
+        <label for="event" class="active">イベント</label> </div>
+      <div class="controls">
+        <select id="grade" class="floatLabel" name="grade">
           <option value="">---選択してください---</option>  
           <option value="1">１年</option>  
           <option value="2">２年</option>  
-      </select> <label for="grade" class="active">学年</label> </div>
-      <div class="controls"> <input type="text" id="name" class="floatLabel" name="name" autocomplete="off" placeholder="部員名（保護者名でない）を入力してください"> <label for="name" class="active">部員名</label> </div>
-      <div class="controls"> <textarea name="comments" class="floatLabel" id="comments" placeholder="交代の内容を入力してくだい（ex.誰に交代したか など）"></textarea> <label for="comments" class="active">内容</label> </div>
-      <div class="controls"> <input type="text" id="email" class="floatLabel" name="email" autocomplete="off" placeholder="返信が必要な場合は入力してください"> <label for="email" class="active option">返信用メールアドレス</label> </div>
+        </select>
+        <label for="grade" class="active">学年</label> 
+      </div>
+      <div class="controls"> 
+        <input type="text" id="name" class="floatLabel" name="name" autocomplete="off" placeholder="部員名（保護者名でない）を入力してください"> 
+        <label for="name" class="active">部員名</label> 
+      </div>
+      <div class="controls"> 
+        <textarea name="comments" class="floatLabel" id="comments" placeholder="交代の内容を入力してくだい（ex.誰に交代したか など）"></textarea> 
+        <label for="comments" class="active">内容</label> 
+      </div>
+      <div class="controls"> 
+        <input type="text" id="email" class="floatLabel" name="email" autocomplete="off" placeholder="返信が必要な場合は入力してください"> 
+        <label for="email" class="active option">返信用メールアドレス</label> 
+      </div>
     </form>
   </div>
   <footer>
