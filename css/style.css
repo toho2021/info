@@ -8,7 +8,10 @@ body {
   align-items: center;
   min-height: 100vh;
   flex-direction: column;
-
+  min-height: -webkit-fill-available;
+}
+html {
+  height: -webkit-fill-available;
 }
 
 /*--loader------------------------------------------------*/
@@ -224,11 +227,18 @@ br {
   background-color:#2980b9;
   color: #fff;
 }
-.btn:hover {
+.btn:hover:not([disabled]) {
   transition: all .2s linear;
-  //background: #e4e2df;
+  /*background: #e4e2df;}*/
   background: #bdcc00;
 }
+.btn:disabled,
+.btn[disabled]{
+  border: 1px solid #cccccc;
+  background-color: #cccccc;
+  color: #999;
+}
+
 /*
 .btn.emphasis:hover{
   background: #7ed6df;
@@ -391,6 +401,8 @@ h2.heading {
 
 }
 
+
+
 .controls {
   text-align: left;
   position: relative;
@@ -405,12 +417,12 @@ h2.heading {
 .controls button,
 .controls select {
   padding: 15px 10px;
-//  font-size: 14px;
+/*font-size: 14px;*/
   border: 1px solid #c6c6c6;
   width: 100%;
   margin-bottom: 5px;
   font-family: "Open Sans", sans-serif;
-//  font-size: 16px;
+/*font-size: 16px;*/
   font-weight: 300;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -470,10 +482,10 @@ h2.heading {
   top: 12px;
   width: 60%;
   color: #999;
-//  font-size: 16px;
+/*font-size: 16px;*/
   display: inline-block;
   padding: 0px 10px;
-//  font-weight: 400;
+/*font-weight: 400;*/
   font-weight: bold;
   background-color: rgba(255, 255, 255, 0);
   -moz-transition: color 0.3s, top 0.3s, background-color 0.8s;
@@ -490,8 +502,8 @@ h2.heading {
 }
 
 
-.controls label.option:after {
-  margin-left: 0.5em;
+.controls label.option:before {
+  margin-right: 0.5em;
   padding: 1px 6px 1px 6px;
   border-radius: 2px;
   font-size: 0.8em;
@@ -506,7 +518,6 @@ h2.heading {
   resize: none;
   height: 100px;
 }
-
 /*
 button {
   cursor: pointer;
@@ -521,7 +532,7 @@ button:hover {
 }
 */
 select:invalid {
-  /*olor: #757575;*/
+  color: #757575;
 }
 .radio {
   margin: 0.5rem;

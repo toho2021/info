@@ -32,11 +32,11 @@
         <!--<tr><th>9/12(日) 練習試合</th><td data-label="場所" class="txt">籠上中</td><td data-label="開始" class="txt">09:00</td><td data-label="集合" class="txt">07:30（東豊田中）</td><td data-label="移動手段" class="txt">車当番①</td><td data-label="お茶当番" class="txt">大村・寺坂</td><td data-label="駐車場" class="txt">制限あり（５台）<a href="https://forms.gle/xjVmjcxr6FC2F1X18" class="btn small">申込</a></td><td data-label="備考" class="txt">9:00～vs観山A(25ハーフ)<br>10:00～vs末広(20ハーフ)<br>10:50～vs末広A(25ハーフ)<br>11:50～ vs末広(20ハーフ)<br>小雨決行予定</td><td data-label="連絡" class="txt important">※車移動です。車当番の方は忘れないようにお願いします。<br>※駐車場の申込は車当番優先です。その他の方が申し込まれた場合は無効となりますのでご注意ください。</td></tr>-->
       </tbody>
     </table>   
-    <p id="msg-text"> エラーメッセージ </p>
+    <p id="msg-text"></p>
   </div>
   <footer>
-    <button class="btn">当番交代連絡</button>
-    <button class="btn">当番表(PDF)</button>
+    <button class="btn" id="btn_contact1">当番交代連絡</button>
+    <button class="btn" id="btn_tobanpdf">当番表(PDF)</button>
   </footer>
 
 <div id="loader" class="loader">
@@ -47,6 +47,9 @@
 </div>
 
 <script>
+
+var eventTitleAry = [];
+
 $(function(){
   
   $('#container').hide();
@@ -77,7 +80,6 @@ $(function(){
       var disp_flag = false;
       var dateEvent = new Date(event.event_date).setHours(0,0,0,0);
       if (dateEvent.valueOf() == dateToday.valueOf()) {
-        console.log("★★★★");
         //当日は１８時まで表示
         if (new Date().getHours() < 18) {
           disp_flag = true;
@@ -85,11 +87,12 @@ $(function(){
       } else if (dateEvent >= dateToday) {
         disp_flag = true;
       }
-      
 
       if (disp_flag == true) {
         var event_title = new DateFormat("M/d").format(new Date(event.event_date)) + '(' + event.event_day + ') ' + event.event_name;
         
+        eventTitleAry.push(event_title);
+
         if (event.official_game_flag == 1) {
           html_tr += '<tr class="official_game"><th class="official_game">' + event_title + '　＜公式戦＞</th>';
         } else {
@@ -134,7 +137,6 @@ $(function(){
 
         if (replaceBreak(event['notice']) !== '') {
           var notice = replaceBreak(event['notice']);
-          //var notice = convList(event['notice']);
           html_tr += '<td data-label="連絡" class="txt important">' + notice + '</td>';
         }
 
@@ -147,16 +149,25 @@ $(function(){
     } else {
 		  $('#event_table').append(html_tr);
 	  }
-    
 
     $('#loader').hide();
     $('#container').show();
     $('footer').show();
+
+    if (eventTitleAry.length==0) {
+      //$('#btn_contact1').prop("disabled", true);   
+    }
         
   }).fail(function(XMLHttpRequest, status, e){
     $('#loader').hide();
     alert(e);
   });
+});
+
+$('#btn_contact1').on('click', function() {
+  //window.location.href = "./contact1.html?" + encodeURI(eventTitleAry[0]);
+  alert(encodeURI(eventTitleAry[0]));
+  location.href = "./contact1.html?" + encodeURI("あああああ");
 });
 
 function replaceBreak(s) {
