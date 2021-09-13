@@ -425,8 +425,9 @@ h2.heading {
   border: 1px solid #c6c6c6;
   width: 100%;
   margin-bottom: 5px;
-  font-family: "Open Sans", sans-serif;
+/*font-family: "Open Sans", sans-serif;*/
 /*font-size: 16px;*/
+font-size: 100%;
   font-weight: 300;
   -moz-border-radius: 2px;
   -webkit-border-radius: 2px;
@@ -471,7 +472,7 @@ h2.heading {
 .controls button:hover + label,
 .controls select:focus + label,
 .controls select:hover + label {
-  color: #bdcc00;
+  /*color: #bdcc00;*/
   cursor: text;
 }
 .controls select {
@@ -584,4 +585,10 @@ ul {
   padding-bottom: 10px;
   font-size: .8em;
   color: #506982;
+}
+
+a.edit_icon {
+  float:right;
+  text-decoration:none;
+  color: #fff;
 }

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>jQueryUIダイアログサンプル</title>
+<!--<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>-->
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+<script>
+$(function(){
+  $("#btn1").click(function(){
+    $("#dig1").dialog({
+       modal:true
+      ,show:"size"      //表示時のアニメーション
+      //,hide:"size"    //閉じた時のアニメーション
+      ,title:"タイトル"   //ダイアログのタイトル
+      ,width:400         //ダイアログの横幅を400pxに
+      ,height:300        //ダイアログの高さを300pxに
+      ,resizable:false   //リサイズ不可
+      ,closeOnEscape:false  //[ESC]キーで閉じられなくする
+      ,draggable:false   //ダイアログの移動を不可に
+      ,buttons:{
+        "OK":function(){  //OKボタン
+          $(this).dialog("close");
+        },
+        "Cancel":function(){  //Cancelボタン
+          $(this).dialog("close");
+        }
+      }
+    });
+  });
+});
+</script>
+</head>
+<body>
+  <div id="dig1" style="display:none;">
+    <p>ダイアログです</p>
+  </div>
+  <input type="button" id="btn1" value="ダイアログ表示" />
+</body>
+</html>

@@ -8,9 +8,21 @@
     <title>[TOHO2021]info</title>
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
     <link rel="stylesheet" href="./css/style.css" />
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    
+    <!--
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/pepper-grinder/jquery-ui.css">
+    -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
+    
     <script type="text/javascript" src="./js/dateformat.js"></script>
   </head>
+
+
 <body>
 
   <div id="container">
@@ -46,6 +58,7 @@
   <span></span>
 </div>
 
+
 <script>
 
 var eventTitleAry = [];
@@ -76,7 +89,7 @@ $(function(){
 
     var dateToday = new Date().setHours(0,0,0,0);
     var html_tr = '';
-    eventsJson.forEach(event => {
+    eventsJson.forEach(function (event, index) {
       var disp_flag = false;
       var dateEvent = new Date(event.event_date).setHours(0,0,0,0);
       if (dateEvent.valueOf() == dateToday.valueOf()) {
@@ -94,10 +107,12 @@ $(function(){
         eventTitleAry.push(event_title);
 
         if (event.official_game_flag == 1) {
-          html_tr += '<tr class="official_game"><th class="official_game">' + event_title + '　＜公式戦＞</th>';
+          html_tr += '<tr class="official_game"><th class="official_game">' + event_title + '　＜公式戦＞';
         } else {
-          html_tr += '<tr><th>' + event_title + '</th>';
+          html_tr += '<tr><th>' + event_title;
         }
+        html_tr += '<a class="edit_icon" id="edit1" href="javascript:void(0)" onclick="showAdminEditDialog(1)"><i class="fas fa-edit fa-lg"></i></a></th>';
+
 
         if (event.place != '') {
           html_tr += '<td data-label="場所" class="txt">' + event.place + '</td>';
@@ -117,6 +132,7 @@ $(function(){
         }
 
         if (event.ocha_toban !== '') {
+          //html_tr += '<td data-label="お茶当番" class="txt"><span id="v_ocha_toban">' + event.ocha_toban + '</span><span class="controls" id="e_ocha_toban' + '"><input type="text" value="' + event.ocha_toban + '"></div></td>';
           html_tr += '<td data-label="お茶当番" class="txt">' + event.ocha_toban + '</td>';
         }
 
@@ -150,6 +166,7 @@ $(function(){
 		  $('#event_table').append(html_tr);
 	  }
 
+
     $('#loader').hide();
     $('#container').show();
     $('footer').show();
@@ -162,14 +179,61 @@ $(function(){
     $('#loader').hide();
     alert(e);
   });
+
+  $("#edit1").click(function(){
+    $("#dig1").dialog({
+       modal:true
+      ,show:"size"      //表示時のアニメーション
+      //,hide:"size"    //閉じた時のアニメーション
+      ,title:"＜管理者専用＞情報 登録/更新"   //ダイアログのタイトル
+      ,width:400         //ダイアログの横幅を400pxに
+      ,height:500        //ダイアログの高さを300pxに
+      ,resizable:false   //リサイズ不可
+      ,closeOnEscape:false  //[ESC]キーで閉じられなくする
+      ,draggable:false   //ダイアログの移動を不可に
+      ,buttons:{
+        "OK":function(){  //OKボタン
+          $(this).dialog("close");
+        },
+        "Cancel":function(){  //Cancelボタン
+          $(this).dialog("close");
+        }
+      }
+    });
+  });  
+  
+  $('#btn_contact1').click(function() {
+    //window.location.href = "./contact1.html?" + encodeURI(eventTitleAry[0]);
+    location.href = "./contact1.html?" + encodeURI(eventTitleAry);
+    location.href = "https://docs.google.com/forms/d/e/1FAIpQLSdinVvVDuniHXW_vztoeqEz3ITDMj8qG98GBe3b2Ahn3kYjMw/viewform?usp=sf_link";
+    
+  });
+
 });
 
-$('#btn_contact1').on('click', function() {
-  //window.location.href = "./contact1.html?" + encodeURI(eventTitleAry[0]);
-  location.href = "./contact1.html?" + encodeURI(eventTitleAry);
-  location.href = "https://docs.google.com/forms/d/e/1FAIpQLSdinVvVDuniHXW_vztoeqEz3ITDMj8qG98GBe3b2Ahn3kYjMw/viewform?usp=sf_link";
-  
-});
+
+function showAdminEditDialog(idx){
+  $("#dig1").dialog({
+    modal:true
+    ,show:"size"      //表示時のアニメーション
+    //,hide:"size"    //閉じた時のアニメーション
+    ,title:"＜管理者専用＞情報 登録/更新"   //ダイアログのタイトル
+    ,width:400         //ダイアログの横幅を400pxに
+    ,height:500        //ダイアログの高さを300pxに
+    ,resizable:false   //リサイズ不可
+    ,closeOnEscape:false  //[ESC]キーで閉じられなくする
+    ,draggable:false   //ダイアログの移動を不可に
+    ,buttons:{
+      "更新":function(){  //OKボタン
+        $(this).dialog("close");
+      },
+      "キャンセル":function(){  //Cancelボタン
+        $(this).dialog("close");
+      }
+    }
+  });
+}
+
 
 function replaceBreak(s) {
   var br = /[\r\n]+/g; //改行
@@ -178,8 +242,30 @@ function replaceBreak(s) {
   return s.replace(br,rep);
 }
 
+
 </script>
-    
+ 
+
+<div id="dig1" style="display:none;">
+  <p></p>
+  <div class="controls"> 
+    <input type="text" id="" class="floatLabel" name="student_name" autocomplete="off" placeholder=""> 
+    <label for="name" class="active">移動手段</label> 
+  </div>
+  <div class="controls"> 
+    <input type="text" id="name" class="floatLabel" name="student_name" autocomplete="off" placeholder=""> 
+    <label for="name" class="active">お茶当番</label> 
+  </div>
+  <div class="controls"> 
+    <textarea name="comments" class="floatLabel" id="comments" placeholder=""></textarea> 
+    <label for="comments" class="active">連絡事項</label> 
+  </div>
+  <div class="controls"> 
+    <input type="text" id="" class="floatLabel" name="pass" autocomplete="off" placeholder="パスワード" pattern="\d*" style="ime-mode:disabled"> 
+  </div>
+</div>
+
+
 </body>
 
 </html>
