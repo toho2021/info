@@ -213,14 +213,20 @@ $(function(){
 
 
 function showAdminEditDialog(idx){
+
+  var wWidth = $(window).width();
+  var dWidth = wWidth * 0.9;
+  var wHeight = $(window).height();
+  var dHeight = wHeight * 0.8;
+
   $("#dig1").dialog({
     modal:true
     ,show:"size"      //表示時のアニメーション
     //,hide:"size"    //閉じた時のアニメーション
     ,title:"＜管理者専用＞情報 登録/更新"   //ダイアログのタイトル
-    ,width:400         //ダイアログの横幅を400pxに
-    ,height:500        //ダイアログの高さを300pxに
-    ,resizable:false   //リサイズ不可
+    ,width:dWidth 
+    ,height:dHeight
+    ,resizable:false
     ,closeOnEscape:false  //[ESC]キーで閉じられなくする
     ,draggable:false   //ダイアログの移動を不可に
     ,buttons:{
@@ -234,6 +240,32 @@ function showAdminEditDialog(idx){
   });
 }
 
+
+/*
+$(document).ready(function() {
+$('#testColorBox').click(function() {
+    var wWidth = $(window).width();
+    var dWidth = wWidth * 0.8;
+    var wHeight = $(window).height();
+    var dHeight = wHeight * 0.8;
+    var $link = $(this);
+    var $dialog = $('<div></div>')
+        .load('test.html')
+        .dialog({
+            autoOpen: false,
+            modal: true,
+            title: $link.attr('title'),
+            overlay: { opacity: 0.1, background: "black" },
+            width: dWidth,
+            height: dHeight,
+            draggable: false,
+                            resizable: false
+        });
+    $dialog.dialog('open');
+    return false;
+  });   
+});
+*/
 
 function replaceBreak(s) {
   var br = /[\r\n]+/g; //改行
