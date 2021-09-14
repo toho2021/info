@@ -139,6 +139,7 @@ h1{
 
 #container{
     margin:20px;
+    width:90%;
     background-color: #fff;
     min-width:300px;
     flex-grow: 1;
@@ -521,7 +522,7 @@ font-size: 100%;
 
 .controls textarea {
   resize: none;
-  height: 100px;
+  height: 200px;
 }
 /*
 button {
@@ -592,3 +593,11 @@ a.edit_icon {
   text-decoration:none;
   color: #fff;
 }
+/*
+.ui-widget-overlay
+{
+  opacity: .50 !important; 
+  filter: Alpha(Opacity=50) !important;
+  background: rgb(10, 10, 10) !important; 
+}
+*/

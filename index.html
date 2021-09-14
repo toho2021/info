@@ -70,13 +70,13 @@ $(function(){
   $('#loader').show();
   
   var formData = new FormData();
-  formData.append( 'api', '/master/event' );
+  formData.append( 'api', '/event/master' );
   $.ajax({
     type: "POST",
     processData: false,
     contentType: false,        
     data: formData,
-    url: "https://script.google.com/macros/s/AKfycbyGPa9vLum0m5nndZHD6Lw7UUwtfUtwj0hwDHVt6S7IO-vtV5sVqVtXxL4JJ3KIQEaw/exec",
+    url: "https://script.google.com/macros/s/AKfycbwp0nI-gJcm8JHd_lg2Bp9DWsYey7ENxVLMfNAaY4pH2sygoZY9_cK9BavSr3-N87H6/exec",
   }).done(function(eventsJson){
      
     eventsJson.sort((a,b)=>{
@@ -111,7 +111,7 @@ $(function(){
         } else {
           html_tr += '<tr><th>' + event_title;
         }
-        html_tr += '<a class="edit_icon" id="edit1" href="javascript:void(0)" onclick="showAdminEditDialog(1)"><i class="fas fa-edit fa-lg"></i></a></th>';
+        html_tr += '<a class="edit_icon" href="javascript:void(0)" onclick="showAdminEditDialog(' + event.row_no + ')"><i class="fas fa-edit fa-lg"></i></a></th>';
 
 
         if (event.place != '') {
@@ -128,7 +128,7 @@ $(function(){
         }
 
         if (event.transportation != '') {
-          html_tr += '<td data-label="移動手段" class="txt">' + event.transportation + '</td>';
+          html_tr += '<td data-label="移動手段" class="txt" id="transportation_' + event.row_no + '">' + event.transportation + '</td>';
         }
 
         if (event.ocha_toban !== '') {
@@ -180,6 +180,7 @@ $(function(){
     alert(e);
   });
 
+  /*
   $("#edit1").click(function(){
     $("#dig1").dialog({
        modal:true
@@ -200,7 +201,8 @@ $(function(){
         }
       }
     });
-  });  
+  });
+  */  
   
   $('#btn_contact1').click(function() {
     //window.location.href = "./contact1.html?" + encodeURI(eventTitleAry[0]);
@@ -212,23 +214,32 @@ $(function(){
 });
 
 
-function showAdminEditDialog(idx){
+function showAdminEditDialog(row_no){
 
   var wWidth = $(window).width();
-  var dWidth = wWidth * 0.9;
+  var dWidth = wWidth * 0.95;
   var wHeight = $(window).height();
-  var dHeight = wHeight * 0.8;
+  var dHeight = wHeight * 0.95;
 
   $("#dig1").dialog({
     modal:true
     ,show:"size"      //表示時のアニメーション
     //,hide:"size"    //閉じた時のアニメーション
-    ,title:"＜管理者専用＞情報 登録/更新"   //ダイアログのタイトル
+    ,title:"＜管理者専用＞データ更新"   //ダイアログのタイトル
     ,width:dWidth 
     ,height:dHeight
     ,resizable:false
     ,closeOnEscape:false  //[ESC]キーで閉じられなくする
     ,draggable:false   //ダイアログの移動を不可に
+    ,open: function() {
+      
+      if ($("table#event_table td#transportation_" + row_no).text() != '車') {
+        $("div#car_toban").hide();
+      } else {
+        $("div#car_toban").show();
+      }
+    }
+
     ,buttons:{
       "更新":function(){  //OKボタン
         $(this).dialog("close");
@@ -280,20 +291,25 @@ function replaceBreak(s) {
 
 <div id="dig1" style="display:none;">
   <p></p>
-  <div class="controls"> 
-    <input type="text" id="" class="floatLabel" name="student_name" autocomplete="off" placeholder=""> 
-    <label for="name" class="active">移動手段</label> 
+  <div class="controls" id="car_toban"> 
+    <select id="car_toban" class="floatLabel" name="car_toban" required>
+      <option value="">---選択してください---</option>  
+      <option value="1">①</option>  
+      <option value="2">②</option>  
+      <option value="2">③</option>  
+    </select>
+    <label for="car_toban" class="active">車当番</label> 
   </div>
   <div class="controls"> 
-    <input type="text" id="name" class="floatLabel" name="student_name" autocomplete="off" placeholder=""> 
-    <label for="name" class="active">お茶当番</label> 
+    <input type="text" id="ocha_toban" class="floatLabel" name="ocha_toban" autocomplete="off" placeholder=""> 
+    <label for="ocha_toban" class="active">お茶当番</label> 
   </div>
   <div class="controls"> 
-    <textarea name="comments" class="floatLabel" id="comments" placeholder=""></textarea> 
-    <label for="comments" class="active">連絡事項</label> 
+    <textarea name="notice" class="floatLabel" id="notice" placeholder=""></textarea> 
+    <label for="notice" class="active">連絡事項</label> 
   </div>
   <div class="controls"> 
-    <input type="text" id="" class="floatLabel" name="pass" autocomplete="off" placeholder="パスワード" pattern="\d*" style="ime-mode:disabled"> 
+    <input type="text" id="pass" class="floatLabel" name="pass" autocomplete="off" placeholder="パスワード" pattern="\d*" style="ime-mode:disabled"> 
   </div>
 </div>
 
