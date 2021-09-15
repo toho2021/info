@@ -522,7 +522,7 @@ font-size: 100%;
 
 .controls textarea {
   resize: none;
-  height: 200px;
+  height: 100px;
 }
 /*
 button {
@@ -593,11 +593,10 @@ a.edit_icon {
   text-decoration:none;
   color: #fff;
 }
-/*
+
 .ui-widget-overlay
 {
-  opacity: .50 !important; 
-  filter: Alpha(Opacity=50) !important;
-  background: rgb(10, 10, 10) !important; 
+  opacity: .80 !important; 
+  filter: Alpha(Opacity=80) !important;
+  background: #323232 !important; 
 }
-*/

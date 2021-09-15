@@ -227,21 +227,28 @@ function showAdminEditDialog(row_no){
     //,hide:"size"    //閉じた時のアニメーション
     ,title:"＜管理者専用＞データ更新"   //ダイアログのタイトル
     ,width:dWidth 
-    ,height:dHeight
+    //,height:dHeight
+    ,height:'auto'
     ,resizable:false
     ,closeOnEscape:false  //[ESC]キーで閉じられなくする
     ,draggable:false   //ダイアログの移動を不可に
     ,open: function() {
-      
+      //スクロール無効化
+      $("body").css("overflow", "hidden");
+
       if ($("table#event_table td#transportation_" + row_no).text() != '車') {
         $("div#car_toban").hide();
       } else {
         $("div#car_toban").show();
       }
+      $( this ).siblings('.ui-dialog-buttonpane').find('button:eq(1)').focus();
     }
-
+    ,beforeClose: function() {
+      $("body").css("overflow", "auto");
+    }
     ,buttons:{
       "更新":function(){  //OKボタン
+        //$("#ocha_toban").blur();
         $(this).dialog("close");
       },
       "キャンセル":function(){  //Cancelボタン
