@@ -237,12 +237,12 @@ function showAdminEditDialog(row_no){
     ,draggable:false   //ダイアログの移動を不可に
     ,open: function() {
       //スクロール無効化
-      $("body").css("overflow", "hidden");
+      //$("body").css("overflow", "hidden");
       $( this ).siblings('.ui-dialog-buttonpane').find('button:eq(1)').focus();
     }
     ,beforeClose: function() {
       //スクロール有効化
-      $("body").css("overflow", "auto");
+      //$("body").css("overflow", "auto");
     }
     ,buttons:{
       "OK":function(){  //OKボタン
@@ -317,7 +317,7 @@ function replaceBreak(s) {
   </div>
 -->
   <div class="controls"> 
-    <input type="text" id="pass" class="floatLabel" name="pass" autocomplete="off" placeholder="パスワード" pattern="\d*" style="ime-mode:disabled"> 
+    <input type="text" id="pass" class="floatLabel" name="pass" autocomplete="off" placeholder="パスワード" inputmode="numeric" style="ime-mode:disabled"> 
   </div>
 </div>
 
