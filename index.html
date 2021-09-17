@@ -61,10 +61,12 @@
 
 <script>
 
-var eventTitleAry = [];
+//var eventTitleAry = [];
 
 $(function(){
-  
+
+  document.cookie = "pass=;max-age=0";
+
   $('#container').hide();
   $('footer').hide();
   $('#loader').show();
@@ -74,11 +76,13 @@ $(function(){
   $.ajax({
     type: "POST",
     processData: false,
-    contentType: false,        
+    contentType: false,
     data: formData,
-    url: "https://script.google.com/macros/s/AKfycbwp0nI-gJcm8JHd_lg2Bp9DWsYey7ENxVLMfNAaY4pH2sygoZY9_cK9BavSr3-N87H6/exec",
+    url: "https://script.google.com/macros/s/AKfycbxQn2c9jFCGzbotlE9SFvofsw3527Pjh0cPjLmNvi6j3yE1ZyonjCauX_soUb4d8UPe/exec",
   }).done(function(eventsJson){
-     
+    
+console.log(JSON.stringify(eventsJson));
+
     eventsJson.sort((a,b)=>{
       var dateA = new Date(a.event_date);
       var dateB = new Date(b.event_date);
@@ -104,8 +108,6 @@ $(function(){
       if (disp_flag == true) {
         var event_title = new DateFormat("M/d").format(new Date(event.event_date)) + '(' + event.event_day + ') ' + event.event_name;
         
-        eventTitleAry.push(event_title);
-
         if (event.official_game_flag == 1) {
           html_tr += '<tr class="official_game"><th class="official_game">' + event_title + '　＜公式戦＞';
         } else {
@@ -128,9 +130,14 @@ $(function(){
         }
 
         if (event.transportation != '') {
-          html_tr += '<td data-label="移動手段" class="txt" id="transportation_' + event.row_no + '">' + event.transportation + '</td>';
+          html_tr += '<td data-label="移動手段" class="txt" id="transportation_' + event.row_no + '">' + event.transportation;
+          
+          if (event.car_toban != "") {
+            html_tr += event.car_toban;
+          }
+          html_tr += '</td>';
         }
-
+        
         if (event.ocha_toban !== '') {
           //html_tr += '<td data-label="お茶当番" class="txt"><span id="v_ocha_toban">' + event.ocha_toban + '</span><span class="controls" id="e_ocha_toban' + '"><input type="text" value="' + event.ocha_toban + '"></div></td>';
           html_tr += '<td data-label="お茶当番" class="txt">' + event.ocha_toban + '</td>';
@@ -166,14 +173,9 @@ $(function(){
 		  $('#event_table').append(html_tr);
 	  }
 
-
     $('#loader').hide();
     $('#container').show();
     $('footer').show();
-
-    if (eventTitleAry.length==0) {
-      //$('#btn_contact1').prop("disabled", true);   
-    }
         
   }).fail(function(XMLHttpRequest, status, e){
     $('#loader').hide();
@@ -203,13 +205,14 @@ $(function(){
     });
   });
   */  
-  
+  /*
   $('#btn_contact1').click(function() {
     //window.location.href = "./contact1.html?" + encodeURI(eventTitleAry[0]);
     location.href = "./contact1.html?" + encodeURI(eventTitleAry);
     location.href = "https://docs.google.com/forms/d/e/1FAIpQLSdinVvVDuniHXW_vztoeqEz3ITDMj8qG98GBe3b2Ahn3kYjMw/viewform?usp=sf_link";
     
   });
+  */
 
 });
 
@@ -217,7 +220,7 @@ $(function(){
 function showAdminEditDialog(row_no){
 
   var wWidth = $(window).width();
-  var dWidth = wWidth * 0.95;
+  var dWidth = wWidth * 0.85;
   var wHeight = $(window).height();
   var dHeight = wHeight * 0.95;
 
@@ -235,21 +238,17 @@ function showAdminEditDialog(row_no){
     ,open: function() {
       //スクロール無効化
       $("body").css("overflow", "hidden");
-
-      if ($("table#event_table td#transportation_" + row_no).text() != '車') {
-        $("div#car_toban").hide();
-      } else {
-        $("div#car_toban").show();
-      }
       $( this ).siblings('.ui-dialog-buttonpane').find('button:eq(1)').focus();
     }
     ,beforeClose: function() {
+      //スクロール有効化
       $("body").css("overflow", "auto");
     }
     ,buttons:{
-      "更新":function(){  //OKボタン
-        //$("#ocha_toban").blur();
-        $(this).dialog("close");
+      "OK":function(){  //OKボタン
+        document.cookie = 'pass='+$("input#pass").val();
+        location.href = "./admin.html?rn="+row_no;
+        //$(this).dialog("close");
       },
       "キャンセル":function(){  //Cancelボタン
         $(this).dialog("close");
@@ -297,7 +296,8 @@ function replaceBreak(s) {
  
 
 <div id="dig1" style="display:none;">
-  <p></p>
+  <p>ここからは管理者専用です。</p>
+  <!--
   <div class="controls" id="car_toban"> 
     <select id="car_toban" class="floatLabel" name="car_toban" required>
       <option value="">---選択してください---</option>  
@@ -315,6 +315,7 @@ function replaceBreak(s) {
     <textarea name="notice" class="floatLabel" id="notice" placeholder=""></textarea> 
     <label for="notice" class="active">連絡事項</label> 
   </div>
+-->
   <div class="controls"> 
     <input type="text" id="pass" class="floatLabel" name="pass" autocomplete="off" placeholder="パスワード" pattern="\d*" style="ime-mode:disabled"> 
   </div>

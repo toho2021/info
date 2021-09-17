@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ja" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="robots" content="noindex">
+
+    <title>[TOHO2021]info</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
+    <link rel="stylesheet" href="./css/style.css" />
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  </head>
+
+
+<body>
+
+  <div id="container">
+    <p></p>
+
+    <div name="form1" id="form1">
+
+      <div class="controls" id="car_toban"> 
+        <select id="car_toban" class="floatLabel" name="car_toban" required>
+          <option value="">---選択してください---</option>  
+          <option value="①">①</option>  
+          <option value="②">②</option>  
+          <option value="③">③</option>  
+        </select>
+        <label for="car_toban" class="active">車当番</label> 
+      </div>
+      <div class="controls"> 
+        <input type="text" id="ocha_toban" class="floatLabel" name="ocha_toban" autocomplete="off" placeholder=""> 
+        <label for="ocha_toban" class="active">お茶当番</label> 
+      </div>
+      <div class="controls"> 
+        <textarea name="notice" class="floatLabel" id="notice" placeholder=""></textarea> 
+        <label for="notice" class="active">連絡</label> 
+      </div>
+    </div>
+
+    <p id="msg-text" class="err-msg"></p>
+
+
+  </div>
+  <footer>
+    <button class="btn" id="btn_back">戻る</button>
+    <button class="btn emphasis" id="btn_update">更新</button>
+  </footer>
+
+  <div id="overlay">
+    <div class="cv-spinner">
+      <span class="spinner"></span>
+    </div>
+  </div>
+
+<script>
+$(function(){
+  //パラメタチェック
+  var row_no=getParam('rn');
+  if (row_no==null || !isFinite(row_no)) {
+    handleErr("不正なアクセスです");
+  }
+
+  //パスワードチェック
+  var pass = '';
+  var cookies = document.cookie;
+  var cookiesArray = cookies.split(';');
+  cookiesArray.forEach(function (c) {
+    var ary = c.split('=');
+    if( ary[0] == 'pass'){
+        pass = ary[1];
+    }
+  });
+  if (pass=="") {
+    handleErr("不正なアクセスです");
+  }
+
+
+  $(document).ajaxSend(function() {
+      $("#overlay").fadeIn(300);　
+      $("#msg-text").text("");
+    });
+
+
+  $("#btn_update").click(function() {
+    var obj = {};
+    var car_toban = $("select#car_toban").val();
+    var ocha_toban = $("input#ocha_toban").val();
+    var notice = $("textarea#notice").val();
+    
+    obj["row_no"] = Number(row_no);
+
+    if (car_toban != "") {
+      obj["car_toban"]=car_toban;
+    }
+    if(ocha_toban != ""){
+      obj["ocha_toban"]=ocha_toban;
+    }
+    if(notice != ""){
+      obj["notice"]=notice;
+    }
+    obj["password"] = pass;
+    
+    var formData = new FormData();
+    formData.append( 'api', '/event/update' );
+    formData.append( 'data', JSON.stringify(obj));
+    $.ajax({
+      type: "POST",
+      processData: false,
+      contentType: false,        
+      data: formData,
+      url: "https://script.google.com/macros/s/AKfycbxQn2c9jFCGzbotlE9SFvofsw3527Pjh0cPjLmNvi6j3yE1ZyonjCauX_soUb4d8UPe/exec",
+    
+    }).done(function(eventsJson){
+      //$("#msg-text").text(JSON.stringify(eventsJson, null, 2));
+      $("#overlay").fadeOut(0);
+
+      if (eventsJson["error"]==""){
+        location.href = "./index.html";
+      } else {
+        handleErr(eventsJson["message"]);
+      }
+
+    });
+
+  });
+
+  $("#btn_back").click(function() {
+    location.href = "./index.html";
+  });
+});
+
+function handleErr(msg) {
+  $("#form1").hide();
+  $("#btn_update").prop("disabled", true);
+  $("#msg-text").text(msg);
+}
+
+function getParam(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
+</script>
+ 
+
+</body>
+
+</html>
