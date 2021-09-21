@@ -139,7 +139,7 @@ h1{
 
 
 #container{
-    margin:20px;
+    margin:20px 20px 0px 20px;
     width:90%;
     background-color: #fff;
     min-width:300px;
@@ -223,7 +223,7 @@ br {
   color: #333;
   border: 1px solid rgb(228,226,223);
   border-radius: 4px;
-  width: 130px;
+  width: 140px;
   text-align: center;
   font-size: 1.0em
 }
@@ -329,7 +329,8 @@ ul {
   }
   table tr {
     display: block;
-    margin-bottom: .625em;
+    /*margin-bottom: .625em;*/
+    margin-bottom: 1.2em;
     /*border: 1px solid #fd6767;*/
     border: 1px solid #333;
 

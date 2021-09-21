@@ -48,8 +48,8 @@
     <p id="msg-text"></p>
   </div>
   <footer>
-    <button class="btn" id="btn_contact1">当番交代連絡</button>
-    <button class="btn" id="btn_pdf1">当番表(PDF)</button>
+    <button class="btn" id="btn_contact1"><i class="fas fa-envelope fa-fw"></i>当番交代連絡</button>
+    <button class="btn" id="btn_pdf1"><i class="fas fa-table fa-fw"></i></i>当番表(PDF)</button>
   </footer>
 
 <div id="loader" class="loader">
@@ -82,13 +82,13 @@ $(function(){
   }).done(function(systemJson){
 
     $('#btn_contact1').click(function() {
-      window.open(systemJson.contact1, '_blank')
-      //location.href = systemJson.contact1;
+      //window.open(systemJson.contact1, '_blank')
+      location.href = systemJson.contact1;
     });
 
     $('#btn_pdf1').click(function() {
-      window.open(systemJson.pdf1, '_blank')
-      //location.href = systemJson.pdf1;
+      //window.open(systemJson.pdf1, '_blank')
+      location.href = systemJson.pdf1;
     });
 
 }).fail(function(XMLHttpRequest, status, e){
@@ -172,7 +172,7 @@ $(function(){
         var parking = event.parking;
         var parking_form = '';
         if (event.parking_form != '') {
-            parking_form = '<a href="' + event.parking_form + '?usp=pp_url&entry.1102247283=' + encodeURI(event_title) + '" class="btn small">申込</a>';
+            parking_form = '<a href="' + event.parking_form + '?usp=pp_url&entry.1102247283=' + encodeURI(event_title) + '" class="btn small"><i class="fas fa-parking fa-fw"></i>申込</a>';
         }
         parking += parking_form;
         if (parking !== '') {
