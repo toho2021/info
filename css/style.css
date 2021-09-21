@@ -313,8 +313,8 @@ ul {
     border-right: none;
   }
   table th.official_game {
-    /*background-color: #d63031;*/
-    background-color: #333;
+    background-color: #d63031;
+    /*background-color: #333;*/
   }
 
   table thead {
@@ -336,8 +336,8 @@ ul {
 
   }
   table tr.official_game {
-    /*border: 1px solid #d63031;*/
-    border: 1px solid #333;
+    border: 1px solid #d63031;
+    /*border: 1px solid #333;*/
   }
 
   table td {
@@ -602,11 +602,39 @@ select:invalid {
   margin-right: 0;
 }
 */
+
+/*
 ul {
   padding-left: 20px;
   padding-bottom: 10px;
   font-size: .8em;
   color: #506982;
+}
+*/
+
+ul {
+  padding-left: 10px;
+  /*padding-bottom: 10px;*/
+}
+
+li {
+  list-style-type: none;
+}
+ 
+li::before {
+  position: relative;
+  top: -2px;
+  left: -8px;
+ 
+  display: inline-block;
+ 
+  width: 5px;
+  height: 5px;
+ 
+  content: '';
+ 
+  border-radius: 100%;
+  background: #888;
 }
 
 a.edit_icon {

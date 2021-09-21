@@ -133,6 +133,7 @@ $(function(){
 
       if (disp_flag == true) {
         var event_title = new DateFormat("M/d").format(new Date(event.event_date)) + '(' + event.event_day + ') ' + event.event_name;
+        event_title = '<i class="far fa-calendar-alt fa-fw"></i>' + event_title;
         
         if (event.official_game_flag == 1) {
           html_tr += '<tr class="official_game"><th class="official_game">' + event_title + '　＜公式戦＞';
@@ -143,7 +144,7 @@ $(function(){
 
 
         if (event.place != '') {
-          html_tr += '<td data-label="場所" class="txt">' + event.place + '</td>';
+          html_tr += '<td data-label="場所" class="txt"><i class="fas fa-map-marker-alt fa-fw"></i>' + event.place + '</td>';
         }
 
         if (event.start_time != '') {
@@ -185,12 +186,14 @@ $(function(){
         }
 
         if (event.notice_1 != '') {
-          var notice_1 = replaceBreak(event.notice_1);
+          //var notice_1 = replaceBreak(event.notice_1);
+          var notice_1 = convertBreakToList(event.notice_1);
           html_tr += '<td data-label="連絡１" class="txt important">' + notice_1 + '</td>';
         }
 
         if (event.notice_2 != '') {
-          var notice_2 = replaceBreak(event.notice_2);
+          //var notice_2 = replaceBreak(event.notice_2);
+          var notice_2 = convertBreakToList(event.notice_2);
           html_tr += '<td data-label="連絡２" class="txt important">' + notice_2 + '</td>';
         }
         html_tr += '</tr>';
@@ -319,6 +322,17 @@ function replaceBreak(s) {
   return s.replace(br,rep);
 }
 
+function convertBreakToList(s) {
+  var items = replaceBreak(s).split("<br>");
+
+  var html_li = "";
+  items.forEach(function(item){
+    if (item != '') {
+      html_li += "<li>" + item + "</li>";
+    }
+  });
+  return ("<ul>" + html_li + "</ul>");
+}
 
 </script>
  
