@@ -10,19 +10,21 @@
     <link rel="stylesheet" href="./css/style.css" />
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./js/dateformat.js"></script>
     <script type="text/javascript" src="./js/common.js"></script>
   </head>
 
 <body>
 
   <div id="container">
+    <h1 id="event_title"></h1>
     <p></p>
 
     <div name="form1" id="form1">
 
       <div class="controls" id="car_toban"> 
         <select id="car_toban" class="floatLabel" name="car_toban" required>
-          <option value="">---選択してください---</option>  
+          <option value="">---未確定---</option>  
           <option value="①">①</option>  
           <option value="②">②</option>  
           <option value="③">③</option>  
@@ -120,6 +122,9 @@ var formData = new FormData();
     //alert(JSON.stringify(eventJson));
     //alert(JSON.stringify(eventJson['transportation']));
     
+    var event_title = new DateFormat("M/d").format(new Date(eventJson['event_date'])) + '(' + eventJson['event_day'] + ') ' + eventJson['event_name'];
+    
+    $("h1#event_title").text(event_title);
     $("select#car_toban").val(eventJson['car_toban']);
     $("input#ocha_toban").val(eventJson['ocha_toban']);
     $("textarea#notice_2").val(eventJson['notice_2']);
