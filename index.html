@@ -65,16 +65,13 @@
 //var eventTitleAry = [];
 
 $(function(){
-
   document.cookie = "pass=;max-age=0";
-
   $('#container').hide();
   $('footer').hide();
   $('#loader').show();
-  
 
-//----------------------------------------------------------------------------------------
-var formData = new FormData();
+  //----------------------------------------------------------------------------------------
+  var formData = new FormData();
   formData.append( 'api', '/system/master' );
   $.ajax({
     type: "POST",
@@ -85,11 +82,13 @@ var formData = new FormData();
   }).done(function(systemJson){
 
     $('#btn_contact1').click(function() {
-      location.href = systemJson.contact1;
+      window.open(systemJson.contact1, '_blank')
+      //location.href = systemJson.contact1;
     });
 
     $('#btn_pdf1').click(function() {
-      location.href = systemJson.pdf1;
+      window.open(systemJson.pdf1, '_blank')
+      //location.href = systemJson.pdf1;
     });
 
 }).fail(function(XMLHttpRequest, status, e){
@@ -194,9 +193,6 @@ var formData = new FormData();
           var notice_2 = replaceBreak(event.notice_2);
           html_tr += '<td data-label="連絡２" class="txt important">' + notice_2 + '</td>';
         }
-
-
-
         html_tr += '</tr>';
       }
     });
@@ -247,11 +243,7 @@ var formData = new FormData();
     
   });
   */
-
-
 });
-
-
 
 function showAdminEditDialog(row_no){
 
