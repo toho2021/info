@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="./css/style.css" />
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
   </head>
-
 
 <body>
 
@@ -34,13 +34,12 @@
         <label for="ocha_toban" class="active">お茶当番</label> 
       </div>
       <div class="controls"> 
-        <textarea name="notice" class="floatLabel" id="notice" placeholder=""></textarea> 
-        <label for="notice" class="active">連絡</label>
+        <textarea name="notice_2" class="floatLabel" id="notice_2" placeholder=""></textarea> 
+        <label for="notice_2" class="active">連絡２</label>
       </div>
     </div>
 
     <p id="msg-text" class="err-msg"></p>
-
 
   </div>
   <footer>
@@ -77,18 +76,75 @@ $(function(){
   }
 
 
+//----------------------------------------------------------------------------------------
   $(document).ajaxSend(function() {
       $("#overlay").fadeIn(300);　
       $("#msg-text").text("");
     });
 
+//----------------------------------------------------------------------------------------
+var formData = new FormData();
+  formData.append( 'api', '/system/master' );
+  $.ajax({
+    type: "POST",
+    processData: false,
+    contentType: false,
+    data: formData,
+    url:API_ENDPOINT,
+  }).done(function(systemJson){
 
+    $("#overlay").fadeOut(0);
+    
+    if (systemJson.password != pass) {
+      handleErr("パスワードが正しくありません");
+    }
+
+  }).fail(function(XMLHttpRequest, status, e){
+    handleErr("予期せぬエラーが発生しました");
+  });
+
+//----------------------------------------------------------------------------------------
+  formData.delete('api');
+  formData.append( 'api', '/event/master/at' );
+  formData.append( 'data', '{"row_no":' + row_no + ' }' );
+  $.ajax({
+    type: "POST",
+    processData: false,
+    contentType: false,
+    data: formData,
+    url: API_ENDPOINT,
+  }).done(function(eventJson){
+
+    $("#overlay").fadeOut(0);
+
+    //alert(JSON.stringify(eventJson));
+    //alert(JSON.stringify(eventJson['transportation']));
+    
+    $("select#car_toban").val(eventJson['car_toban']);
+    $("input#ocha_toban").val(eventJson['ocha_toban']);
+    $("textarea#notice_2").val(eventJson['notice_2']);
+
+    if (eventJson['transportation'] != '車当番') {
+      $("select#car_toban").prop("disabled", true);
+      $('select#car_toban option:selected').text('---車当番による移動ではありません---');
+    }
+
+  }).fail(function(XMLHttpRequest, status, e){
+    handleErr("予期せぬエラーが発生しました");
+  });
+
+
+  //----------------------------------------------------------------------------------------
   $("#btn_update").click(function() {
     var obj = {};
     var car_toban = $("select#car_toban").val();
     var ocha_toban = $("input#ocha_toban").val();
-    var notice = $("textarea#notice").val();
+    var notice_2 = $("textarea#notice_2").val();
     
+    if ($("select#car_toban").prop("disabled")) {
+      car_toban = '';
+    }
+
     obj["row_no"] = Number(row_no);
 
     if (car_toban != "") {
@@ -97,8 +153,8 @@ $(function(){
     if(ocha_toban != ""){
       obj["ocha_toban"]=ocha_toban;
     }
-    if(notice != ""){
-      obj["notice"]=notice;
+    if(notice_2 != ""){
+      obj["notice_2"]=notice_2;
     }
     obj["password"] = pass;
     
@@ -110,7 +166,7 @@ $(function(){
       processData: false,
       contentType: false,        
       data: formData,
-      url: "https://script.google.com/macros/s/AKfycbxQn2c9jFCGzbotlE9SFvofsw3527Pjh0cPjLmNvi6j3yE1ZyonjCauX_soUb4d8UPe/exec",
+      url: API_ENDPOINT,
     
     }).done(function(eventsJson){
       //$("#msg-text").text(JSON.stringify(eventsJson, null, 2));
@@ -125,13 +181,17 @@ $(function(){
     });
 
   });
+  //----------------------------------------------------------------------------------------
 
   $("#btn_back").click(function() {
     location.href = "./index.html";
   });
+
 });
 
-function handleErr(msg) {
+
+
+  function handleErr(msg) {
   $("#form1").hide();
   $("#btn_update").prop("disabled", true);
   $("#msg-text").text(msg);

@@ -20,6 +20,7 @@
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
     
     <script type="text/javascript" src="./js/dateformat.js"></script>
+    <script type="text/javascript" src="./js/common.js"></script>
   </head>
 
 
@@ -48,7 +49,7 @@
   </div>
   <footer>
     <button class="btn" id="btn_contact1">当番交代連絡</button>
-    <button class="btn" id="btn_tobanpdf">当番表(PDF)</button>
+    <button class="btn" id="btn_pdf1">当番表(PDF)</button>
   </footer>
 
 <div id="loader" class="loader">
@@ -71,17 +72,43 @@ $(function(){
   $('footer').hide();
   $('#loader').show();
   
-  var formData = new FormData();
+
+//----------------------------------------------------------------------------------------
+var formData = new FormData();
+  formData.append( 'api', '/system/master' );
+  $.ajax({
+    type: "POST",
+    processData: false,
+    contentType: false,
+    data: formData,
+    url:API_ENDPOINT,
+  }).done(function(systemJson){
+
+    $('#btn_contact1').click(function() {
+      location.href = systemJson.contact1;
+    });
+
+    $('#btn_pdf1').click(function() {
+      location.href = systemJson.pdf1;
+    });
+
+}).fail(function(XMLHttpRequest, status, e){
+    handleErr("予期せぬエラーが発生しました");
+  });
+
+//----------------------------------------------------------------------------------------
+
+  formData.delete('api');
   formData.append( 'api', '/event/master' );
   $.ajax({
     type: "POST",
     processData: false,
     contentType: false,
     data: formData,
-    url: "https://script.google.com/macros/s/AKfycbxQn2c9jFCGzbotlE9SFvofsw3527Pjh0cPjLmNvi6j3yE1ZyonjCauX_soUb4d8UPe/exec",
+    url: API_ENDPOINT,
   }).done(function(eventsJson){
     
-console.log(JSON.stringify(eventsJson));
+    //console.log(JSON.stringify(eventsJson));
 
     eventsJson.sort((a,b)=>{
       var dateA = new Date(a.event_date);
@@ -158,10 +185,17 @@ console.log(JSON.stringify(eventsJson));
           html_tr += '<td data-label="備考" class="txt">' + memo + '</td>';
         }
 
-        if (replaceBreak(event['notice']) !== '') {
-          var notice = replaceBreak(event['notice']);
-          html_tr += '<td data-label="連絡" class="txt important">' + notice + '</td>';
+        if (event.notice_1 != '') {
+          var notice_1 = replaceBreak(event.notice_1);
+          html_tr += '<td data-label="連絡１" class="txt important">' + notice_1 + '</td>';
         }
+
+        if (event.notice_2 != '') {
+          var notice_2 = replaceBreak(event.notice_2);
+          html_tr += '<td data-label="連絡２" class="txt important">' + notice_2 + '</td>';
+        }
+
+
 
         html_tr += '</tr>';
       }
@@ -214,7 +248,9 @@ console.log(JSON.stringify(eventsJson));
   });
   */
 
+
 });
+
 
 
 function showAdminEditDialog(row_no){
@@ -317,7 +353,7 @@ function replaceBreak(s) {
   </div>
 -->
   <div class="controls"> 
-    <input type="text" id="pass" class="floatLabel" name="pass" autocomplete="off" placeholder="パスワード" inputmode="numeric" style="ime-mode:disabled"> 
+    <input type="text" id="pass" class="floatLabel" name="pass" autocomplete="off" placeholder="パスワード" inputmode="numeric"> 
   </div>
 </div>
 

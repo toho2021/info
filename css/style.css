@@ -1,7 +1,8 @@
 
 
 body {
-  font-family: "Open Sans", sans-serif;
+  /*font-family: "Open Sans", sans-serif;*/
+  font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
   /*line-height: 1.25;*/
   margin: 0;
   display: flex;
@@ -29,7 +30,7 @@ body.loader {
 	margin:200px auto;
 }
 h1{
-	font-family: 'Actor', sans-serif;
+	/*font-family: 'Actor', sans-serif;*/
 	/*color:#FFF;*/
 	font-size:16px;
 	letter-spacing:1px;
@@ -169,8 +170,8 @@ table {
 }
 table tr {
   background-color: #fff;
-  //border-bottom: 2px solid #fff;
-    border: 1px solid #fd6767;
+  /*border-bottom: 2px solid #fff;*/
+  /*border: 1px solid #fd6767;*/
 }
 table tr:nth-child(even){
   background-color: #eee;
@@ -185,7 +186,9 @@ table thead th {
     padding: 1em;
 }
 table thead tr{
-  background-color: #fd6767;
+  /*background-color: #fd6767;*/
+  background-color: #333;
+
   color:#fff;
 }
 table tbody th {
@@ -197,7 +200,7 @@ table tbody th {
    /*font-size: .75em;*/
 }
 .important{
-   color: #e74c3c;
+   /*color: #e74c3c;*/
 }
 
 .price{
@@ -298,18 +301,20 @@ ul {
 
 
 
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 5000px) {
   table {
     border: 0;
     width:100%
   }
   table th{
-    background-color: #fd6767;
+    /*background-color: #fd6767;*/
+    background-color: #333;
     display: block;
     border-right: none;
   }
   table th.official_game {
-    background-color: #d63031;
+    /*background-color: #d63031;*/
+    background-color: #333;
   }
 
   table thead {
@@ -325,10 +330,13 @@ ul {
   table tr {
     display: block;
     margin-bottom: .625em;
-    border: 1px solid #fd6767;
+    /*border: 1px solid #fd6767;*/
+    border: 1px solid #333;
+
   }
   table tr.official_game {
-    border: 1px solid #d63031;
+    /*border: 1px solid #d63031;*/
+    border: 1px solid #333;
   }
 
   table td {
@@ -337,7 +345,7 @@ ul {
     /*font-size: .8em;*/
     text-align: right;
     position: relative;
-    padding: .5em 1.0em .9em 5.5em;
+    padding: .5em 1.0em .9em 7.5em;
     border-right: none;
   }
   
@@ -405,7 +413,8 @@ h2.heading {
   font-weight: 300;
   text-align: left;
   color: #506982;
-  border-bottom: 3px solid #fd6767;
+  /*border-bottom: 3px solid #fd6767;*/
+  border-bottom: 3px solid #333;
   padding-bottom: 3px;
   margin-bottom: 5px;
   font-weight: bold;
@@ -433,6 +442,7 @@ h2.heading {
   width: 100%;
   margin-bottom: 5px;
 /*font-family: "Open Sans", sans-serif;*/
+
 /*font-size: 16px;*/
 font-size: 100%;
   font-weight: 300;
@@ -529,7 +539,11 @@ font-size: 100%;
 .controls textarea {
   resize: none;
   height: 200px;
+	font-size: 100%;
+	font-family:'ヒラギノ角ゴ Pro W3','Hiragino Kaku Gothic Pro','メイリオ',Meiryo,'ＭＳ Ｐゴシック',sans-serif;
 }
+
+
 /*
 button {
   cursor: pointer;
@@ -635,4 +649,9 @@ a.edit_icon {
   100% { 
     transform: rotate(360deg); 
   }
+}
+
+
+td hr {
+  border-top: 1px dotted #bbb;
 }
