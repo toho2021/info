@@ -24,7 +24,7 @@
 
       <div class="controls" id="car_toban"> 
         <select id="car_toban" class="floatLabel" name="car_toban" required>
-          <option value="">---未確定---</option>  
+          <option value="">---車当番を選択してください---</option>  
           <option value="①">①</option>  
           <option value="②">②</option>  
           <option value="③">③</option>  
@@ -78,6 +78,9 @@ $(function(){
   }
 
 
+var need_car_toban = false;
+var need_ocha_toban = false;
+
 //----------------------------------------------------------------------------------------
   $(document).ajaxSend(function() {
       $("#overlay").fadeIn(300);　
@@ -123,10 +126,20 @@ var formData = new FormData();
     //alert(JSON.stringify(eventJson['transportation']));
     
     var event_title = new DateFormat("M/d").format(new Date(eventJson['event_date'])) + '(' + eventJson['event_day'] + ') ' + eventJson['event_name'];
-    
+    var car_toban = eventJson['car_toban'];
+    if (car_toban=="*") {
+      car_toban = "";
+      need_car_toban = true;
+    }
+    var ocha_toban = eventJson['ocha_toban'];
+    if (ocha_toban=="*") {
+      ocha_toban = "";
+      need_ocha_toban = true;
+    }
+
     $("h1#event_title").text(event_title);
-    $("select#car_toban").val(eventJson['car_toban']);
-    $("input#ocha_toban").val(eventJson['ocha_toban']);
+    $("select#car_toban").val(car_toban);
+    $("input#ocha_toban").val(ocha_toban);
     $("textarea#notice_2").val(eventJson['notice_2']);
 
     if (eventJson['transportation'] != '車当番') {
@@ -154,9 +167,13 @@ var formData = new FormData();
 
     if (car_toban != "") {
       obj["car_toban"]=car_toban;
+    } else if (need_car_toban){
+      obj["car_toban"]="*";
     }
     if(ocha_toban != ""){
       obj["ocha_toban"]=ocha_toban;
+    } else if (need_ocha_toban) {
+      obj["ocha_toban"]="*";
     }
     if(notice_2 != ""){
       obj["notice_2"]=notice_2;
@@ -196,7 +213,8 @@ var formData = new FormData();
 
 
 
-  function handleErr(msg) {
+function handleErr(msg) {
+  $("h1#event_title").hide();
   $("#form1").hide();
   $("#btn_update").prop("disabled", true);
   $("#msg-text").text(msg);

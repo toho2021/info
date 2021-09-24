@@ -219,8 +219,11 @@ br {
   display: inline-block;
   padding: 5px 10px;
   text-decoration: none;
-  background: #bdc3c7;
-  color: #333;
+  /*background: #bdc3c7;*/
+  /*background:#1b3d4d;*/
+  background:#333;
+  /*color: #333;*/
+  color: #fff;
   border: 1px solid rgb(228,226,223);
   border-radius: 4px;
   width: 160px;
@@ -228,7 +231,7 @@ br {
   font-size: 1.0em
 }
 .btn.small {
-  padding: 0px 15px;
+  padding: 1px 15px;
   width: auto;
 }
 .btn.emphasis{
@@ -237,9 +240,15 @@ br {
 }
 .btn:hover:not([disabled]) {
   transition: all .2s linear;
-  /*background: #e4e2df;}*/
-  background: #bdcc00;
+  /*background:#224c60;*/
+  background:#555;
 }
+
+.btn.emphasis:hover:not([disabled]) {
+  background:#3197EE;
+}
+
+
 .btn:disabled,
 .btn[disabled]{
   border: 1px solid #cccccc;
@@ -308,12 +317,17 @@ ul {
   }
   table th{
     /*background-color: #fd6767;*/
-    background-color: #333;
+    background-color: #163271;
     display: block;
     border-right: none;
   }
   table th.official_game {
-    background-color: #d63031;
+    background-color: #B41219;
+    /*background-color: #d63031;*/
+    /*background-color: #333;*/
+  }
+  table th.ichinen_taikai {
+    background-color: #f1c40f;
     /*background-color: #333;*/
   }
 
@@ -331,12 +345,17 @@ ul {
     display: block;
     /*margin-bottom: .625em;*/
     margin-bottom: 1.2em;
-    /*border: 1px solid #fd6767;*/
-    border: 1px solid #333;
+    border: 1px solid #163271;
 
   }
   table tr.official_game {
-    border: 1px solid #d63031;
+    border: 1px solid #B41219;
+    /*border: 1px solid #d63031;*/
+    /*border: 1px solid #333;*/
+  }
+  table tr.official_game.ichinen_taikai {
+    border: 1px solid #f1c40f;
+    /*border: 1px solid #d63031;*/
     /*border: 1px solid #333;*/
   }
 

@@ -91,7 +91,7 @@ $(function(){
       location.href = systemJson.pdf1;
     });
 
-}).fail(function(XMLHttpRequest, status, e){
+  }).fail(function(XMLHttpRequest, status, e){
     handleErr("予期せぬエラーが発生しました");
   });
 
@@ -136,7 +136,9 @@ $(function(){
         var event_icon = '<i class="far fa-calendar-alt fa-fw"></i>';
         
         if (event.official_game_flag == 1) {
-          html_tr += '<tr class="official_game"><th class="official_game">'  + event_icon + event_title + '　＜公式戦＞';
+          html_tr += '<tr class="official_game"><th class="official_game">'  + event_icon + event_title; // + '＜公式戦＞';
+        } else if (event.official_game_flag ==2) {
+          html_tr += '<tr class="official_game ichinen_taikai"><th class="official_game ichinen_taikai">'  + event_icon + event_title; // + '＜公式戦＞';
         } else {
           html_tr += '<tr><th>' + event_icon + event_title;
         }
@@ -160,14 +162,23 @@ $(function(){
           html_tr += '<td data-label="移動手段" class="txt" id="transportation_' + event.row_no + '">' + event.transportation;
           
           if (event.car_toban != "") {
-            html_tr += event.car_toban;
+            var car_toban = event.car_toban;
+            if (car_toban=='*') {
+              car_toban = "<span class='err-msg'>---未確定---</span>";
+            }
+
+            html_tr += car_toban;
           }
           html_tr += '</td>';
         }
         
         if (event.ocha_toban !== '') {
           //html_tr += '<td data-label="お茶当番" class="txt"><span id="v_ocha_toban">' + event.ocha_toban + '</span><span class="controls" id="e_ocha_toban' + '"><input type="text" value="' + event.ocha_toban + '"></div></td>';
-          html_tr += '<td data-label="お茶当番" class="txt">' + event.ocha_toban + '</td>';
+          var ocha_toban = event.ocha_toban;
+          if ( ocha_toban=='*') {
+            ocha_toban = "<span class='err-msg'>---未確定---</span>";
+          }
+            html_tr += '<td data-label="お茶当番" class="txt">' + ocha_toban + '</td>';
         }
 
         var parking = event.parking;
