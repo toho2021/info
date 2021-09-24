@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>jQueryUIダイアログサンプル</title>
+<style>
+  body {
+  margin: 0 auto;
+}
+.fixed {
+  padding: 10px;
+}
+.yohaku {
+  height: 1000px;
+}
+.modal {
+  background: #fff;
+  text-align: center;
+  margin: auto;
+  padding: 10px 0;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  width: 90%;
+  height: 100px;
+  z-index: 100;
+}
+.overlay {
+  background: rgba(0,0,0,0.5);
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 99;
+}
+</style>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+<script>
+  $(function(){
+  $('[data-modal="overlay"], [data-modal="content"]').hide();
+  
+  $('[data-modal="button"]').on('click', function(){
+    posi = $(window).scrollTop();
+    $('[data-modal="fixed"]').css({
+      position: 'fixed',
+      top: -1 * posi
+    });
+    $('[data-modal="overlay"], [data-modal="content"]').fadeIn();
+  });
+  
+  //$('[data-modal="close"],[data-modal="overlay"]').on('click', function(){
+  $('[data-modal="close"]').on('click', function(){
+    $('[data-modal="fixed"]').attr('style', '');
+    $('html, body').prop({scrollTop: posi});
+    $('[data-modal="overlay"], [data-modal="content"]').fadeOut();
+  });
+});
+</script>
+</head>
+<body>
+  <div class="fixed" data-modal="fixed">
+    <div>スクロールしない！</div>
+    <button type="button" data-modal="button">モーダル表示</button>
+    
+    <div class="yohaku"></div>
+    
+    <button type="button" data-modal="button">モーダル表示しても上に戻らない！</button>
+  </div>
+  
+  <div class="modal" data-modal="content">
+    <p>モーダルですよ</p>
+    <button type="button" data-modal="close">閉じる</button>
+  </div>
+  
+  <div class="overlay" data-modal="overlay"></div>
+
+</body>
+</html>
