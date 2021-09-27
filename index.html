@@ -190,13 +190,13 @@ $(function(){
         if (event.memo != '') {
           //var notice_1 = replaceBreak(event.notice_1);
           var memo = convertBreakToList(event.memo);
-          html_tr += '<td data-label="備考" class="txt important">' + memo + '</td>';
+          html_tr += '<td data-label="特記・注意" class="txt important">' + memo + '</td>';
         }
 
         if (event.notice_2 != '') {
           var notice_2 = replaceBreak(event.notice_2);
           //var notice_2 = convertBreakToList(event.notice_2);
-          html_tr += '<td data-label="連絡" class="txt important">' + notice_2 + '</td>';
+          html_tr += '<td data-label="当番への連絡" class="txt important">' + notice_2 + '</td>';
         }
         html_tr += '</tr>';
       }
