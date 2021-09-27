@@ -192,21 +192,21 @@ $(function(){
           html_tr += '<td data-label="駐車場" class="txt">' + parking + '</td>';
         }
           
-        if (event.memo != '') {
-          var memo = replaceBreak(event.memo);
-          html_tr += '<td data-label="備考" class="txt">' + memo + '</td>';
+        if (event.nittei != '') {
+          var nittei = replaceBreak(event.nittei);
+          html_tr += '<td data-label="日程" class="txt">' + nittei + '</td>';
         }
 
-        if (event.notice_1 != '') {
+        if (event.memo != '') {
           //var notice_1 = replaceBreak(event.notice_1);
-          var notice_1 = convertBreakToList(event.notice_1);
-          html_tr += '<td data-label="連絡１" class="txt important">' + notice_1 + '</td>';
+          var memo = convertBreakToList(event.memo);
+          html_tr += '<td data-label="備考" class="txt important">' + memo + '</td>';
         }
 
         if (event.notice_2 != '') {
-          //var notice_2 = replaceBreak(event.notice_2);
-          var notice_2 = convertBreakToList(event.notice_2);
-          html_tr += '<td data-label="連絡２" class="txt important">' + notice_2 + '</td>';
+          var notice_2 = replaceBreak(event.notice_2);
+          //var notice_2 = convertBreakToList(event.notice_2);
+          html_tr += '<td data-label="連絡" class="txt important">' + notice_2 + '</td>';
         }
         html_tr += '</tr>';
       }
