@@ -9,12 +9,6 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0">
     <link rel="stylesheet" href="./css/style.css" />
     <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-    
-    <!--
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script type="text/javascript" src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"></script>
-    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/pepper-grinder/jquery-ui.css">
-    -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js"></script>
@@ -42,7 +36,6 @@
         </tr>
       </thead>
       <tbody>
-        <!--<tr><th>9/12(日) 練習試合</th><td data-label="場所" class="txt">籠上中</td><td data-label="開始" class="txt">09:00</td><td data-label="集合" class="txt">07:30（東豊田中）</td><td data-label="移動手段" class="txt">車当番①</td><td data-label="お茶当番" class="txt">大村・寺坂</td><td data-label="駐車場" class="txt">制限あり（５台）<a href="https://forms.gle/xjVmjcxr6FC2F1X18" class="btn small">申込</a></td><td data-label="備考" class="txt">9:00～vs観山A(25ハーフ)<br>10:00～vs末広(20ハーフ)<br>10:50～vs末広A(25ハーフ)<br>11:50～ vs末広(20ハーフ)<br>小雨決行予定</td><td data-label="連絡" class="txt important">※車移動です。車当番の方は忘れないようにお願いします。<br>※駐車場の申込は車当番優先です。その他の方が申し込まれた場合は無効となりますのでご注意ください。</td></tr>-->
       </tbody>
     </table>   
     <p id="msg-text"></p>
@@ -61,8 +54,6 @@
 
 
 <script>
-
-//var eventTitleAry = [];
 
 $(function(){
   document.cookie = "pass=;max-age=0";
@@ -174,7 +165,6 @@ $(function(){
         }
         
         if (event.ocha_toban !== '') {
-          //html_tr += '<td data-label="お茶当番" class="txt"><span id="v_ocha_toban">' + event.ocha_toban + '</span><span class="controls" id="e_ocha_toban' + '"><input type="text" value="' + event.ocha_toban + '"></div></td>';
           var ocha_toban = event.ocha_toban;
           if ( ocha_toban=='*') {
             ocha_toban = "<span class='err-msg'>---未確定---</span>";
@@ -351,25 +341,6 @@ function convertBreakToList(s) {
 
 <div id="dig1" style="display:none;">
   <p>ここからは管理者専用です。</p>
-  <!--
-  <div class="controls" id="car_toban"> 
-    <select id="car_toban" class="floatLabel" name="car_toban" required>
-      <option value="">---選択してください---</option>  
-      <option value="1">①</option>  
-      <option value="2">②</option>  
-      <option value="2">③</option>  
-    </select>
-    <label for="car_toban" class="active">車当番</label> 
-  </div>
-  <div class="controls"> 
-    <input type="text" id="ocha_toban" class="floatLabel" name="ocha_toban" autocomplete="off" placeholder=""> 
-    <label for="ocha_toban" class="active">お茶当番</label> 
-  </div>
-  <div class="controls"> 
-    <textarea name="notice" class="floatLabel" id="notice" placeholder=""></textarea> 
-    <label for="notice" class="active">連絡事項</label> 
-  </div>
--->
   <div class="controls"> 
     <input type="text" id="pass" class="floatLabel" name="pass" autocomplete="off" placeholder="パスワード" inputmode="numeric"> 
   </div>
