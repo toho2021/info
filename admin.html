@@ -219,16 +219,15 @@ var formData = new FormData();
     location.href = "./index.html#" + row_no;
   });
 
+  function handleErr(msg) {
+    $("h1#event_title").hide();
+    $("#form1").hide();
+    $("#btn_update").prop("disabled", true);
+    $("#msg-text").text(msg);
+  }
+
 });
 
-
-
-function handleErr(msg) {
-  $("h1#event_title").hide();
-  $("#form1").hide();
-  $("#btn_update").prop("disabled", true);
-  $("#msg-text").text(msg);
-}
 
 function getParam(name, url) {
     if (!url) url = window.location.href;
