@@ -17,9 +17,7 @@
     <script type="text/javascript" src="./js/common.js"></script>
   </head>
 
-
 <body>
-
   <div id="container">
     <table id="event_table">
       <thead>
@@ -55,6 +53,7 @@
 
 
 <script>
+
 
 $(function(){
   document.cookie = "pass=;max-age=0";
@@ -129,11 +128,11 @@ $(function(){
         var event_icon = '<i class="far fa-calendar-alt fa-fw"></i>';
         
         if (event.official_game_flag == 1) {
-          html_tr += '<tr class="official_game"><th class="official_game">'  + event_icon + event_title; // + '＜公式戦＞';
+          html_tr += '<tr id="' + event.row_no + '" class="official_game"><th class="official_game">'  + event_icon + event_title; // + '＜公式戦＞';
         } else if (event.official_game_flag ==2) {
-          html_tr += '<tr class="official_game ichinen_taikai"><th class="official_game ichinen_taikai">'  + event_icon + event_title; // + '＜公式戦＞';
+          html_tr += '<tr id="' + event.row_no + '" class="official_game ichinen_taikai"><th class="official_game ichinen_taikai">'  + event_icon + event_title; // + '＜公式戦＞';
         } else {
-          html_tr += '<tr><th>' + event_icon + event_title;
+          html_tr += '<tr id="' + event.row_no + '"><th>' + event_icon + event_title;
         }
         html_tr += '<a class="edit_icon" href="javascript:void(0)" onclick="showAdminEditDialog(' + event.row_no + ')"><i class="fas fa-edit fa-lg"></i></a></th>';
 
@@ -212,7 +211,17 @@ $(function(){
     $('#loader').hide();
     $('#container').show();
     $('footer').show();
-        
+
+    //ロード後にアンカー位置に移動する
+    var lochref = window.location.href;
+    if ( lochref.indexOf('#') > -1 ) {
+      var anchor = lochref.slice( lochref.indexOf('#') );
+      window.setTimeout(function(){
+        $('body, html').animate({ scrollTop: $(anchor).offset().top }, 1);
+      }, 1);
+    }
+
+
   }).fail(function(XMLHttpRequest, status, e){
     $('#loader').hide();
     alert(e);
@@ -249,6 +258,10 @@ $(function(){
     
   });
   */
+
+
+
+
 });
 
 function showAdminEditDialog(row_no){

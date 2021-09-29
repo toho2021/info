@@ -24,7 +24,7 @@
 
       <div class="controls" id="car_toban"> 
         <select id="car_toban" class="floatLabel" name="car_toban" required>
-          <option value="">---車当番を選択してください---</option>  
+          <option value="*">---未確定---</option>  
           <option value="①">①</option>  
           <option value="②">②</option>  
           <option value="③">③</option>  
@@ -127,10 +127,13 @@ var formData = new FormData();
     
     var event_title = new DateFormat("M/d").format(new Date(eventJson['event_date'])) + '(' + eventJson['event_day'] + ') ' + eventJson['event_name'];
     var car_toban = eventJson['car_toban'];
+    
+    /*
     if (car_toban=="*") {
       car_toban = "";
       need_car_toban = true;
     }
+    */
     var ocha_toban = eventJson['ocha_toban'];
     if (ocha_toban=="*") {
       ocha_toban = "";
@@ -143,8 +146,15 @@ var formData = new FormData();
     $("textarea#notice_2").val(eventJson['notice_2']);
 
     if (eventJson['transportation'] != '車当番') {
+      $('select#car_toban').empty();
+      $('select#car_toban').append(
+        $("<option />")
+                        .val('')
+                        .text('---車当番による移動ではありません---')
+        );
       $("select#car_toban").prop("disabled", true);
-      $('select#car_toban option:selected').text('---車当番による移動ではありません---');
+      //$('select#car_toban').val("");
+      //$('select#car_toban option:selected').text('---車当番による移動ではありません---');
     }
 
   }).fail(function(XMLHttpRequest, status, e){
@@ -167,9 +177,9 @@ var formData = new FormData();
 
     if (car_toban != "") {
       obj["car_toban"]=car_toban;
-    } else if (need_car_toban){
-      obj["car_toban"]="*";
-    }
+    } //else if (need_car_toban){
+      //obj["car_toban"]="*";
+    //}
     if(ocha_toban != ""){
       obj["ocha_toban"]=ocha_toban;
     } else if (need_ocha_toban) {
@@ -195,7 +205,7 @@ var formData = new FormData();
       $("#overlay").fadeOut(0);
 
       if (eventsJson["error"]==""){
-        location.href = "./index.html";
+        location.href = "./index.html#" + row_no;
       } else {
         handleErr(eventsJson["message"]);
       }
@@ -206,7 +216,7 @@ var formData = new FormData();
   //----------------------------------------------------------------------------------------
 
   $("#btn_back").click(function() {
-    location.href = "./index.html";
+    location.href = "./index.html#" + row_no;
   });
 
 });
